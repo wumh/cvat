@@ -47,14 +47,17 @@
             <div style="width: 50%; display: flex;"> </div>
             <div style="width: 100%; display: flex;">
                 <div id="dashboardManageButtons" style="display: flex;">
-                    <button id="dashboardCreateTaskButton" class="regular h1" style="padding: 7px;"> Create New Task </button>
+                    <button id="dashboardCreateTaskButton" class="regular h1" style="padding: 7px;"> 创建新任务 </button>
                 </div>
                 <div style="width: 300px; display: flex; margin-left: 4px;">
                     <input type="text" id="dashboardSearchInput" class="regular h3" placeholder="Search.." name="search">
                     <button id="dashboardSearchSubmit" class="regular h3"> &#x1F50D; </button>
                 </div>
             </div>
-            <div style="width: 50%; display: flex;"> </div>
+            <div style="width: 50%; display: flex;padding-left: 20px;">
+                <div style="line-height:51px;margin-right: 30px;">当前用户: {{user.username}}</div>
+                <a href="/auth/login"><button  class="regular h3" style="height:100%;">退出登录</button></a>
+            </div>
         </div>
 
         <div id="dashboardPagination">
@@ -65,47 +68,47 @@
     <div id="dashboardCreateModal" class="modal hidden">
         <form id="dashboardCreateContent" class="modal-content" autocomplete="on" onsubmit="return false">
             <center>
-                <label class="semiBold h1"> Task Configuration </label>
+                <label class="semiBold h1"> 任务配置 </label>
             </center>
 
             <table style="width: 100%; text-align: left;">
                 <tr>
-                    <td style="width: 25%"> <label class="regular h2"> Name: </label> </td>
+                    <td style="width: 25%"> <label class="regular h2"> 名称: </label> </td>
                     <td> <input type="text" id="dashboardNameInput" class="regular" style="width: 90%"/> </td>
                 </tr>
                 <tr>
-                    <td> <label class="regular h2"> Labels: </label> </td>
+                    <td> <label class="regular h2"> 标签: </label> </td>
                     <td> <input type="text" id="dashboardLabelsInput" class="regular" style="width: 90%" title='
-Example:
+例:
 car @select=color:blue,red,black ~checkbox=parked:true
 @text=plate:"" @select=model:volvo,mazda,bmw
 ~radio=quality:good,bad
 
-Specification:
+规格:
 <prefix>checkbox=id:true/false
 <prefix>radio=id:name1,name2,...
 <prefix>number=id:min,max,step
 <prefix>text=id:"default value"
 <prefix>select=id:value1,value2,...
 
-<prefix> can be @ for unique properties and ~ for properties
-which can change its value during lifetime of the object.
-Default value for all elements is the first value after ":".
+<prefix> 可以是@的唯一属性 and ~ 对于属性
+它可以在对象的生命周期内改变其值.
+所有元素的默认值是之后的第一个值 ":".
 
-For "select" and "radio" types the special value is available: "__undefined__".
-Specify the value FIRST if the attribute should be annotated explicitly.
-Example: @select=race:__undefined__,skip,asian,black,caucasian,other'/>
+对于 "select" 和 "radio" 类型,可以使用特殊值: "__undefined__".
+如果应明确注释属性，请指定值FIRST.
+例: @select=race:__undefined__,skip,asian,black,caucasian,other'/>
                 </td>
                 </tr>
                 <tr>
-                    <td> <label class="regular h2"> Bug Tracker: </label> </td>
-                    <td> <input type="text" id="dashboardBugTrackerInput" class="regular" style="width: 90%", placeholder="Please specify full URL"/> </td>
+                    <td> <label class="regular h2"> 任务说明: </label> </td>
+                    <td> <input type="text" id="dashboardBugTrackerInput" class="regular" style="width: 90%", placeholder="请指定完整的URL"/> </td>
                 </tr>
                 <tr>
-                    <td> <label class="regular h2"> Source: </label> </td>
+                    <td> <label class="regular h2"> 资源: </label> </td>
                     <td>
-                        <input id="dashboardLocalSource" type="radio" name="sourceType" value="local" checked=true/> <label for="dashboardLocalSource" class="regular h2" for="localSource"> Local </label>
-                        <br> <input id="dashboardShareSource" type="radio" name="sourceType" value="share"/> <label for="dashboardShareSource" class="regular h2" for="shareSource"> Share </label>
+                        <input id="dashboardLocalSource" type="radio" name="sourceType" value="local" checked=true/> <label for="dashboardLocalSource" class="regular h2" for="localSource"> 我的电脑 </label>
+                        <br> <input id="dashboardShareSource" type="radio" name="sourceType" value="share"/> <label for="dashboardShareSource" class="regular h2" for="shareSource"> 我的工作区 </label>
                     </td>
                 </tr>
                 <tr>
@@ -118,29 +121,29 @@ Example: @select=race:__undefined__,skip,asian,black,caucasian,other'/>
                 </tr>
                 <tr>
                         <td>
-                            <label class="regular h2"> Overlap Size </label>
+                            <label class="regular h2"> 重叠大小 </label>
                         </td>
                         <td>
                             <input type="number" id="dashboardOverlap" class="regular" max="50000" min="0" value="0" disabled=true/>
-                            <input type="checkbox" id="dashboardCustomOverlap" title="Custom overlap size"/>
+                            <input type="checkbox" id="dashboardCustomOverlap" title="自定义重叠大小"/>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label class="regular h2"> Segment Size </label>
+                            <label class="regular h2"> 细分大小 </label>
                         </td>
                         <td>
                             <input type="number" id="dashboardSegmentSize" class="regular" max="50000" min="100" value="5000" disabled=true/>
-                            <input type="checkbox" id="dashboardCustomSegment" title="Custom segment size"/>
+                            <input type="checkbox" id="dashboardCustomSegment" title="自定义细分受众群"/>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label class="regular h2"> Image Quality </label>
+                            <label class="regular h2"> 画面质量 </label>
                         </td>
                         <td>
                             <input type="number" id="dashboardImageQuality" class="regular" style="width: 4.5em;" max="95" min="1" value="50" disabled=true/>
-                            <input type="checkbox" id="dashboardCustomQuality" title="Custom image quality"/>
+                            <input type="checkbox" id="dashboardCustomQuality" title="自定义图像质量"/>
                         </td>
                     </tr>
                     <tr>
@@ -175,15 +178,15 @@ Example: @select=race:__undefined__,skip,asian,black,caucasian,other'/>
 
             <div style="text-align: left;">
                 <div>
-                    <button id="dashboardSelectFiles" class="regular h2"> Select Files </button>
-                    <label id="dashboardFilesLabel" class="regular h2" style="margin-left: 10px"> No Files </label>
+                    <button id="dashboardSelectFiles" class="regular h2"> 选择文件 </button>
+                    <label id="dashboardFilesLabel" class="regular h2" style="margin-left: 10px"> 没有文件 </label>
                     <input id="dashboardLocalFileSelector" type="file" style="display: none" multiple/>
                 </div>
             </div>
             <div style="width: 100%; height: 14%; padding-top: 10px;">
                 <div style="float: right; width: 35%; height: 50px;">
-                    <button id="dashboardCancelTask" class="regular h2"> Cancel </button>
-                    <button id="dashboardSubmitTask" class="regular h2"> Submit </button>
+                    <button id="dashboardCancelTask" class="regular h2"> 取消 </button>
+                    <button id="dashboardSubmitTask" class="regular h2"> 提交 </button>
                 </div>
                 <div style="float: left; height: 50px;  overflow: auto; width: 100%; height: auto; word-break: break-word;">
                     <label id="dashboardCreateTaskMessage" class="regular h2 selectable" style="float:left;">  </label>
@@ -197,8 +200,8 @@ Example: @select=race:__undefined__,skip,asian,black,caucasian,other'/>
             <center> <label id="dashboardShareBasePath" class="regular h1"> </label> </center>
             <div id="dashboardShareBrowser"> </div>
             <center>
-                <button id="dashboardCancelBrowseServer" class="regular h2" style="margin: 0px 10px"> Cancel </button>
-                <button id="dashboardSubmitBrowseServer" class="regular h2" style="margin: 0px 10px"> Submit </button>
+                <button id="dashboardCancelBrowseServer" class="regular h2" style="margin: 0px 10px"> 取消 </button>
+                <button id="dashboardSubmitBrowseServer" class="regular h2" style="margin: 0px 10px"> 提交 </button>
             </center>
         </div>
     </div>
@@ -209,8 +212,8 @@ Example: @select=race:__undefined__,skip,asian,black,caucasian,other'/>
                 <input id="dashboardOldLabels" type="text" readonly=true class="regular h2">
                 <input id="dashboardNewLabels" type="text" placeholder="expand the specification here" class="regular h2">
                 <center>
-                    <button id="dashboardCancelUpdate" class="regular h2"> Cancel </button>
-                    <button id="dashboardSubmitUpdate" class="regular h2"> Update </button>
+                    <button id="dashboardCancelUpdate" class="regular h2"> 取消 </button>
+                    <button id="dashboardSubmitUpdate" class="regular h2"> 更新 </button>
                 </center>
             </div>
         </div>

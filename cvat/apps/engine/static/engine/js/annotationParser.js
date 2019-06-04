@@ -37,9 +37,9 @@ class AnnotationParser {
 
         if (xtl < 0 || ytl < 0 || xbr < 0 || ybr < 0
             || xtl > imWidth || ytl > imHeight || xbr > imWidth || ybr > imHeight) {
-            const message = `Incorrect bb found in annotation file: xtl=${xtl} `
+            const message = `注释文件中找到不正确的bb: xtl=${xtl} `
             + `ytl=${ytl} xbr=${xbr} ybr=${ybr}. `
-            + `Box out of range: ${imWidth}x${imHeight}`;
+            + `盒子超出范围: ${imWidth}x${imHeight}`;
             throw Error(message);
         }
 
@@ -66,8 +66,8 @@ class AnnotationParser {
 
         for (const point of points) {
             if (point.x < 0 || point.y < 0 || point.x > imWidth || point.y > imHeight) {
-                const message = `Incorrect point found in annotation file x=${point.x} `
-                    + `y=${point.y}. Point out of range ${imWidth}x${imHeight}`;
+                const message = `注释文件中找到不正确的点 x=${point.x} `
+                    + `y=${point.y}. 超出范围 ${imWidth}x${imHeight}`;
                 throw Error(message);
             }
 

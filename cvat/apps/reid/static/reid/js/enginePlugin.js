@@ -25,13 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 jobData = await $.get(`/reid/check/${window.cvat.job.id}`);
             } catch (errorData) {
                 overlay.addClass('hidden');
-                const message = `Can not check ReID merge. Code: ${errorData.status}. `
-                    + `Message: ${errorData.responseText || errorData.statusText}`;
+                const message = `无法检查ReID合并. 码: ${errorData.status}. `
+                    + `信息: ${errorData.responseText || errorData.statusText}`;
                 showMessage(message);
             }
 
             if (jobData.progress) {
-                cancelButton.text(`Cancel ReID Merge (${jobData.progress.toString().slice(0, 4)}%)`);
+                cancelButton.text(`取消ReID合并 (${jobData.progress.toString().slice(0, 4)}%)`);
             }
 
             if (['queued', 'started'].includes(jobData.status)) {
@@ -50,17 +50,17 @@ document.addEventListener('DOMContentLoaded', () => {
                         window.cvat.data.clear();
                         window.cvat.data.set(collection);
 
-                        showMessage('ReID merge has done.');
+                        showMessage('ReID合并已经完成.');
                     } else {
-                        showMessage('ReID merge been canceled.');
+                        showMessage('ReID合并已被取消.');
                     }
                 } else if (jobData.status === 'failed') {
-                    const message = `ReID merge has fallen. Error: '${jobData.stderr}'`;
+                    const message = `ReID合并已经下降. 错误: '${jobData.stderr}'`;
                     showMessage(message);
                 } else {
-                    let message = `Check request returned "${jobData.status}" status.`;
+                    let message = `检查请求已返回 "${jobData.status}" 状态.`;
                     if (jobData.stderr) {
-                        message += ` Error: ${jobData.stderr}`;
+                        message += ` 错误: ${jobData.stderr}`;
                     }
                     showMessage(message);
                 }
@@ -78,8 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(checkCallback, 1000);
         } catch (errorData) {
             overlay.addClass('hidden');
-            const message = `Can not start ReID merge. Code: ${errorData.status}. `
-                + `Message: ${errorData.responseText || errorData.statusText}`;
+            const message = `无法启动ReID合并. 码: ${errorData.status}. `
+                + `信息: ${errorData.responseText || errorData.statusText}`;
             showMessage(message);
         } finally {
             cancelButton.prop('disabled', false);
@@ -91,9 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             await $.get(`/reid/cancel/${window.cvat.job.id}`);
             overlay.addClass('hidden');
-            cancelButton.text('Cancel ReID Merge (0%)');
+            cancelButton.text('取消ReID合并 (0%)');
         } catch (errorData) {
-            const message = `Can not cancel ReID process. Code: ${errorData.status}. Message: ${errorData.responseText || errorData.statusText}`;
+            const message = `无法取消ReID进程. 码: ${errorData.status}. 信息: ${errorData.responseText || errorData.statusText}`;
             showMessage(message);
         } finally {
             cancelButton.prop('disabled', false);
@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const reidCancelButtonId = 'reidCancelReID';
     const reidOverlay = 'reidOverlay';
 
-    $('<button> Run ReID Merge </button>').on('click', () => {
+    $('<button> 运行ReID合并 </button>').on('click', () => {
         $('#annotationMenu').addClass('hidden');
         $(`#${reidWindowId}`).removeClass('hidden');
     }).addClass('menuButton semiBold h2').prependTo(buttonsUI);
@@ -121,15 +121,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     <tr>
                         <td> <label class="regular h2"> Threshold: </label> </td>
                         <td> <input id="${reidThresholdValueId}" class="regular h1" type="number"`
-                        + `title="Maximum cosine distance between embeddings of objects" min="0.05" max="0.95" value="0.5" step="0.05"> </td>
+                        + `title="对象嵌入之间的最大余弦距离" min="0.05" max="0.95" value="0.5" step="0.05"> </td>
                     </tr>
                     <tr>
-                        <td> <label class="regular h2"> Max Pixel Distance </label> </td>
+                        <td> <label class="regular h2"> 最大像素距离 </label> </td>
                         <td> <input id="${reidDistanceValueId}" class="regular h1" type="number"`
-                        + `title="Maximum radius that an object can diverge between neighbor frames" min="10" max="1000" value="50" step="10"> </td>
+                        + `title="对象在相邻帧之间可以发散的最大半径" min="10" max="1000" value="50" step="10"> </td>
                     </tr>
                     <tr>
-                        <td colspan="2"> <label class="regular h2" style="color: red;"> All boxes will be translated to box paths. Continue? </label> </td>
+                        <td colspan="2"> <label class="regular h2" style="color: red;"> 所有框都将转换为框路径. 继续? </label> </td>
                     </tr>
                 </table>
                 <center style="margin-top: 10px;">
@@ -143,9 +143,9 @@ document.addEventListener('DOMContentLoaded', () => {
     $(`
         <div class="modal hidden force-modal" id="${reidOverlay}">
             <div class="modal-content" style="width: 300px; height: 70px;">
-                <center> <label class="regular h2"> ReID is processing the data </label></center>
+                <center> <label class="regular h2"> ReID正在处理数据 </label></center>
                 <center style="margin-top: 5px;">
-                    <button id="${reidCancelButtonId}" class="regular h2" style="width: 250px;"> Cancel ReID Merge (0%) </button>
+                    <button id="${reidCancelButtonId}" class="regular h2" style="width: 250px;"> 取消ReID合并 (0%) </button>
                 </center>
             </div>
         </div>
@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     $(`#${reidCancelButtonId}`).on('click', () => {
-        userConfirm('ReID process will be canceld. Are you sure?', () => {
+        userConfirm('ReID流程将被取消。 你确定吗？', () => {
             cancel($(`#${reidOverlay}`), $(`#${reidCancelButtonId}`));
         });
     });

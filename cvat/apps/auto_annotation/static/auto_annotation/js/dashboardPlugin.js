@@ -23,7 +23,7 @@ const AutoAnnotationServer = {
                 check(responseData.id, success, error, progress);
             },
             error: (responseData) => {
-                const message = `Starting request has been failed. Code: ${responseData.status}. Message: ${responseData.responseText || responseData.statusText}`;
+                const message = `启动请求失败. 码: ${responseData.status}. 信息: ${responseData.responseText || responseData.statusText}`;
                 error(message);
             },
         });
@@ -47,7 +47,7 @@ const AutoAnnotationServer = {
                 check(responseData.id, success, error, progress);
             },
             error: (responseData) => {
-                const message = `Creating request has been failed. Code: ${responseData.status}. Message: ${responseData.responseText || responseData.statusText}`;
+                const message = `创建请求失败. 码: ${responseData.status}. 信息: ${responseData.responseText || responseData.statusText}`;
                 error(message);
             },
         });
@@ -59,7 +59,7 @@ const AutoAnnotationServer = {
             type: 'DELETE',
             success,
             error: (data) => {
-                const message = `Deleting request has been failed. Code: ${data.status}. Message: ${data.responseText || data.statusText}`;
+                const message = `删除请求失败. 码: ${data.status}. 信息: ${data.responseText || data.statusText}`;
                 error(message);
             },
         });
@@ -81,11 +81,11 @@ const AutoAnnotationServer = {
 
                     switch (data.status) {
                     case 'failed':
-                        error(`Checking request has returned the "${data.status}" status. Message: ${data.error}`);
+                        error(`检查请求已返回 "${data.status}" 状态. 信息: ${data.error}`);
                         break;
 
                     case 'unknown':
-                        error(`Checking request has returned the "${data.status}" status.`);
+                        error(`检查请求已返回 "${data.status}" 状态.`);
                         break;
 
                     case 'finished':
@@ -97,7 +97,7 @@ const AutoAnnotationServer = {
                     }
                 },
                 error: (data) => {
-                    const message = `Checking request has been failed. Code: ${data.status}. Message: ${data.responseText || data.statusText}`;
+                    const message = `检查请求失败. Code: ${data.status}. 信息: ${data.responseText || data.statusText}`;
                     error(message);
                 },
             });
@@ -114,7 +114,7 @@ const AutoAnnotationServer = {
             contentType: 'application/json',
             success,
             error: (data) => {
-                const message = `Getting meta request has been failed. Code: ${data.status}. Message: ${data.responseText || data.statusText}`;
+                const message = `获取元请求失败了. 码: ${data.status}. 信息: ${data.responseText || data.statusText}`;
                 error(message);
             },
         });
@@ -126,7 +126,7 @@ const AutoAnnotationServer = {
             type: 'GET',
             success,
             error: (data) => {
-                const message = `Getting meta request has been failed. Code: ${data.status}. Message: ${data.responseText || data.statusText}`;
+                const message = `获取元请求失败了. 码: ${data.status}. 信息: ${data.responseText || data.statusText}`;
                 error(message);
             },
         });
@@ -140,15 +140,15 @@ class AutoAnnotationModelManagerView {
             <div class="modal-content" id="${window.cvat.autoAnnotation.managerContentId}">
                 <div style="float: left; width: 55%; height: 100%;">
                     <center>
-                        <label class="regular h1"> Uploaded Models </label>
+                        <label class="regular h1"> 上传的模型 </label>
                     </center>
                     <div style="overflow: auto; height: 90%; margin-top: 2%;">
                         <table class="regular modelsTable">
                             <thead>
                                 <tr>
-                                    <th> Name </th>
-                                    <th> Upload Date </th>
-                                    <th> Actions </th>
+                                    <th> 名称 </th>
+                                    <th> 上传日期 </th>
+                                    <th> 操作 </th>
                                 </tr>
                             </thead>
                             <tbody id="${window.cvat.autoAnnotation.managerUploadedModelsId}"> </tbody>
@@ -157,39 +157,39 @@ class AutoAnnotationModelManagerView {
                 </div>
                 <div class="regular" id="${window.cvat.autoAnnotation.uploadContentId}">
                     <center>
-                        <label class="regular h1" id="${window.cvat.autoAnnotation.uploadTitleId}"> Create Model </label>
+                        <label class="regular h1" id="${window.cvat.autoAnnotation.uploadTitleId}"> 创建模型 </label>
                     </center>
                     <table>
                         <tr>
-                            <td style="width: 25%"> <label class="regular h3"> Name: </label> </td>
+                            <td style="width: 25%"> <label class="regular h3"> 名称: </label> </td>
                             <td> <input type="text" id="${window.cvat.autoAnnotation.uploadNameInputId}" class="regular h3" style="width: 100%"> </td>
                         </tr>
                         <tr>
-                            <td> <label class="regular h3"> Source: </label> </td>
+                            <td> <label class="regular h3"> 来源: </label> </td>
                             <td>
                                 <input id="${window.cvat.autoAnnotation.uploadLocalSourceId}" type="radio" name="modelSourceType" value="local" checked>
-                                <label for="${window.cvat.autoAnnotation.uploadLocalSourceId}" class="regular h3"> Local </label>
+                                <label for="${window.cvat.autoAnnotation.uploadLocalSourceId}" class="regular h3"> 本地 </label>
                                 <br>
                                 <input id="${window.cvat.autoAnnotation.uploadShareSourceId}" type="radio" name="modelSourceType" value="shared">
-                                <label for="${window.cvat.autoAnnotation.uploadShareSourceId}" class="regular h3"> Share </label>
+                                <label for="${window.cvat.autoAnnotation.uploadShareSourceId}" class="regular h3"> 分享 </label>
                             </td>
                         </tr>
                         <tr id="${window.cvat.autoAnnotation.uploadGloballyBlockId}">
-                            <td> <label class="regular h3"> Upload Globally </label> </td>
+                            <td> <label class="regular h3"> 全球上传 </label> </td>
                             <td> <input type="checkbox" id="${window.cvat.autoAnnotation.uploadGloballyId}"> </td>
                         </tr>
                     </table>
                 <div style="text-align: left;">
                     <div>
-                        <button id="${window.cvat.autoAnnotation.selectFilesButtonId}" class="regular h3"> Select Files </button>
-                        <label id="${window.cvat.autoAnnotation.selectedFilesId}" class="regular h3" style="margin-left: 10px"> No Files </label>
+                        <button id="${window.cvat.autoAnnotation.selectFilesButtonId}" class="regular h3"> 选择文件 </button>
+                        <label id="${window.cvat.autoAnnotation.selectedFilesId}" class="regular h3" style="margin-left: 10px"> 没有文件 </label>
                         <input id="${window.cvat.autoAnnotation.localFileSelectorId}" type="file" accept=".bin,.xml,.json,.py" style="display: none" multiple>
                     </div>
                 </div>
                 <div>
                     <div style="float: right; width: 50%; height: 50px;">
-                        <button class="regular h3" id="${window.cvat.autoAnnotation.submitUploadButtonId}"> Submit </button>
-                        <button class="regular h3" id="${window.cvat.autoAnnotation.cancelUploadButtonId}"> Cancel </button>
+                        <button class="regular h3" id="${window.cvat.autoAnnotation.submitUploadButtonId}"> 提交 </button>
+                        <button class="regular h3" id="${window.cvat.autoAnnotation.cancelUploadButtonId}"> 取消 </button>
                     </div>
                     <div style="float: left; overflow-y: auto; height: 75px;  overflow: auto; width: 100%; word-break: break-word;">
                         <label class="regular h3 selectable" style="float: left;" id="${window.cvat.autoAnnotation.uploadMessageId}"> </label>
@@ -233,7 +233,7 @@ class AutoAnnotationModelManagerView {
                 return labelStr;
             }
 
-            return 'No Files';
+            return '没有文件';
         }
 
         function extractFiles(extensions, files, source) {
@@ -244,7 +244,7 @@ class AutoAnnotationModelManagerView {
 
             function addFile(file, extention) {
                 if (extention in files) {
-                    throw Error(`More than one file with the extension .${extention} have been found`);
+                    throw Error(`多个带扩展名的文件 .${extention} 已被发现`);
                 }
 
                 extractedFiles[extention] = file;
@@ -267,7 +267,7 @@ class AutoAnnotationModelManagerView {
             if (!isUpdate) {
                 extensions.forEach((extension) => {
                     if (!(extension in extractedFiles)) {
-                        throw Error(`Please specify a .${extension} file`);
+                        throw Error(`请指定一个 .${extension} 文件`);
                     }
                 });
             }
@@ -331,7 +331,7 @@ class AutoAnnotationModelManagerView {
                 const name = $.trim(this.modelNameInput.prop('value'));
                 if (!name.length) {
                     this.uploadMessage.css('color', 'red');
-                    this.uploadMessage.text('Please specify a model name');
+                    this.uploadMessage.text('请指定型号名称');
                     return;
                 }
 
@@ -354,7 +354,7 @@ class AutoAnnotationModelManagerView {
                 });
 
                 this.uploadMessage.text('');
-                const overlay = showOverlay('Send request to the server..');
+                const overlay = showOverlay('将请求发送到服务器..');
                 window.cvat.autoAnnotation.server.update(modelData, () => {
                     window.location.reload();
                 }, (message) => {
@@ -379,11 +379,11 @@ class AutoAnnotationModelManagerView {
         };
 
         setBlocked();
-        this.uploadTitle.text('Create Model');
+        this.uploadTitle.text('创建模型');
         this.uploadNameInput.prop('value', '');
         this.uploadMessage.css('color', '');
         this.uploadMessage.text('');
-        this.selectedFilesLabel.text('No Files');
+        this.selectedFilesLabel.text('没有文件');
         this.localSource.prop('checked', true);
         this.globallyBox.prop('checked', false);
         this.table.empty();
@@ -395,13 +395,13 @@ class AutoAnnotationModelManagerView {
         const updateButtonClickHandler = (event) => {
             this.reset();
 
-            this.uploadTitle.text('Update Model');
+            this.uploadTitle.text('更新模型');
             this.uploadNameInput.prop('value', `${event.data.model.name}`);
             this.id = event.data.model.id;
         };
 
         const deleteButtonClickHandler = (event) => {
-            userConfirm(`Do you actually want to delete the "${event.data.model.name}" model. Are you sure?`, () => {
+            userConfirm(`你真的想要删除 "${event.data.model.name}" 模块. 你确定吗?`, () => {
                 window.cvat.autoAnnotation.server.delete(event.data.model.id, () => {
                     const filtered = window.cvat.autoAnnotation.data.models.filter(
                         item => item !== event.data.model,
@@ -416,11 +416,11 @@ class AutoAnnotationModelManagerView {
 
         const getModelModifyButtons = (model) => {
             if (model.primary) {
-                return '<td> <label class="h1 regular"> Primary Model </label> </td>';
+                return '<td> <label class="h1 regular"> 主要模型 </label> </td>';
             }
 
-            const updateButtonHtml = '<button class="regular h3" style="width: 7em;"> Update </button>';
-            const deleteButtonHtml = '<button class="regular h3" style="width: 7em; margin-top: 5%;"> Delete </button>';
+            const updateButtonHtml = '<button class="regular h3" style="width: 7em;"> 更新 </button>';
+            const deleteButtonHtml = '<button class="regular h3" style="width: 7em; margin-top: 5%;"> 删除 </button>';
 
             return $('<td> </td>').append(
                 $(updateButtonHtml).on('click', { model }, updateButtonClickHandler),
@@ -459,26 +459,26 @@ class AutoAnnotationModelRunnerView {
             <div class="modal-content" id="${window.cvat.autoAnnotation.runnerContentId}">
                 <div style="width: 55%; height: 100%; float: left;">
                     <center style="height: 10%;">
-                        <label class="regular h1"> Uploaded Models </label>
+                        <label class="regular h1"> 上传的模型 </label>
                     </center>
                     <div style="height: 70%; overflow: auto; margin-top: 2%;">
                         <table class="modelsTable" id="${window.cvat.autoAnnotation.runnerUploadedModelsId}"> </table>
                     </div>
                     <div>
                         <input type="checkbox" id="${window.cvat.autoAnnotation.removeCurrentAnnotationId}"/>
-                        <label class="regular h3" for="${window.cvat.autoAnnotation.removeCurrentAnnotationId}"> Remove current annotation </label>
+                        <label class="regular h3" for="${window.cvat.autoAnnotation.removeCurrentAnnotationId}"> 删除当前注释 </label>
                     </div>
                 </div>
                 <div style="width: 40%; height: 100%; float: left; margin-left: 3%;">
                     <center style="height: 10%;">
-                        <label class="regular h1"> Annotation Labels </label>
+                        <label class="regular h1"> 注释标签 </label>
                     </center>
                     <div style="height: 70%; overflow: auto; margin-top: 2%;">
                         <table class="regular" style="text-align: center; word-break: break-all; width: 100%;">
                             <thead>
                                 <tr style="width: 100%;">
-                                    <th style="width: 45%;"> Task Label </th>
-                                    <th style="width: 45%;"> DL Model Label </th>
+                                    <th style="width: 45%;"> 任务标签 </th>
+                                    <th style="width: 45%;"> DL模型标签 </th>
                                     <th style="width: 10%;"> </th>
                                 </tr>
                             </thead>
@@ -488,8 +488,8 @@ class AutoAnnotationModelRunnerView {
                         </table>
                     </div>
                     <div style="float:right;">
-                        <button class="regular h3" style="width: 6em;" id="${window.cvat.autoAnnotation.submitAnnotationId}"> Start </button>
-                        <button class="regular h3" style="width: 6em;" id="${window.cvat.autoAnnotation.cancelAnnotationId}"> Cancel </button>
+                        <button class="regular h3" style="width: 6em;" id="${window.cvat.autoAnnotation.submitAnnotationId}"> 开始 </button>
+                        <button class="regular h3" style="width: 6em;" id="${window.cvat.autoAnnotation.cancelAnnotationId}"> 取消 </button>
                     </div>
                 </div>
             </div>
@@ -510,7 +510,7 @@ class AutoAnnotationModelRunnerView {
         this.el.find(`#${window.cvat.autoAnnotation.submitAnnotationId}`).on('click', () => {
             try {
                 if (this.id === null) {
-                    throw Error('Please specify a model for an annotation process');
+                    throw Error('请为注释过程指定模型');
                 }
 
                 const mapping = {};
@@ -518,16 +518,16 @@ class AutoAnnotationModelRunnerView {
                     const dlModelLabel = $(element).find('.annotatorDlLabelSelector')[0].value;
                     const taskLabel = $(element).find('.annotatorTaskLabelSelector')[0].value;
                     if (dlModelLabel in mapping) {
-                        throw Error(`The label "${dlModelLabel}" has been specified twice or more`);
+                        throw Error(`标签 "${dlModelLabel}" 已被指定两次或更多次`);
                     }
                     mapping[dlModelLabel] = taskLabel;
                 });
 
                 if (!Object.keys(mapping).length) {
-                    throw Error('Labels for an annotation process haven\'t been found');
+                    throw Error('尚未找到注释过程的标签');
                 }
 
-                const overlay = showOverlay('Request has been sent');
+                const overlay = showOverlay('请求已发送');
                 window.cvat.autoAnnotation.server.start(this.id, this.tid, {
                     reset: $(`#${window.cvat.autoAnnotation.removeCurrentAnnotationId}`).prop('checked'),
                     labels: mapping,
@@ -709,9 +709,9 @@ window.addEventListener('DOMContentLoaded', () => {
     window.cvat.autoAnnotation.runner = new AutoAnnotationModelRunnerView();
 
     $('body').append(window.cvat.autoAnnotation.manager.element, window.cvat.autoAnnotation.runner.element);
-    $(`<button id="${window.cvat.autoAnnotation.managerButtonId}" class="regular h1" style=""> Model Manager</button>`)
+    $(`<button id="${window.cvat.autoAnnotation.managerButtonId}" class="regular h1" style=""> 模型管理</button>`)
         .on('click', () => {
-            const overlay = showOverlay('The manager are being setup..');
+            const overlay = showOverlay('管理员正在筹建中..');
             window.cvat.autoAnnotation.manager.reset().show();
             overlay.remove();
         }).appendTo('#dashboardManageButtons');
@@ -732,15 +732,15 @@ window.addEventListener('dashboardReady', (event) => {
             button[0].setupRun = function setupRun() {
                 const self = $(this);
                 const taskInfo = event.detail.filter(task => task.id === tid)[0];
-                self.text('Run Auto Annotation').off('click').on('click', () => {
+                self.text('运行自动注释').off('click').on('click', () => {
                     window.cvat.autoAnnotation.runner.reset(taskInfo, self).show();
                 });
             };
 
             button[0].setupCancel = function setupCancel() {
                 const self = $(this);
-                self.off('click').text('Cancel Auto Annotation').on('click', () => {
-                    userConfirm('Process will be canceled. Are you sure?', () => {
+                self.off('click').text('取消自动注释').on('click', () => {
+                    userConfirm('流程将被取消.你确定吗?', () => {
                         window.cvat.autoAnnotation.server.cancel(tid, () => {
                             this.setupRun();
                         }, (message) => {
@@ -756,11 +756,11 @@ window.addEventListener('dashboardReady', (event) => {
                     },
                     (error) => {
                         button[0].setupRun();
-                        button.text('Annotation has failed');
+                        button.text('注释失败');
                         button.title(error);
                     },
                     (progress) => {
-                        button.text(`Cancel Auto Annotation (${progress.toString().slice(0, 4)})%`);
+                        button.text(`取消自动注释 (${progress.toString().slice(0, 4)})%`);
                     },
                 );
             };
@@ -775,6 +775,6 @@ window.addEventListener('dashboardReady', (event) => {
             button.appendTo(elem.find('div.dashboardButtonsUI')[0]);
         });
     }, (error) => {
-        showMessage(`Cannot get models meta information: ${error}`);
+        showMessage(`无法获取模型元信息: ${error}`);
     });
 });

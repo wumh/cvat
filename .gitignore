@@ -14,7 +14,7 @@ node_modules
 
 
 # Ignore temporary files
-docker-compose.override.yml
+#docker-compose.override.yml
 /.vscode
 __pycache__
 *.pyc

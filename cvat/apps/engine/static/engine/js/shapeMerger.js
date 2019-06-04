@@ -273,14 +273,14 @@ class ShapeMergerView {
 
     onShapeMergerUpdate(shapeMerger) {
         if (shapeMerger.mergeMode) {
-            this._mergeButton.text('Apply Merge');
+            this._mergeButton.text('应用合并');
             this._frameContent.on('click.merger', () => {
                 this._controller.click();
             });
         }
         else {
             this._frameContent.off('click.merger');
-            this._mergeButton.text('Merge Shapes');
+            this._mergeButton.text('合并图形');
         }
     }
 }

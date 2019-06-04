@@ -50,7 +50,7 @@
 
 async function initLogger(jobID) {
     if (!Logger.initializeLogger(jobID)) {
-        const message = 'Logger has been already initialized';
+        const message = '记录器已经初始化';
         console.error(message);
         showMessage(message);
         return;
@@ -71,9 +71,9 @@ function uploadAnnotation(shapeCollectionModel, historyModel,
         const file = changedFileEvent.target.files['0'];
         changedFileEvent.target.value = '';
         if (!file || file.type !== 'text/xml') return;
-        uploadAnnotationButton.text('Preparing..');
+        uploadAnnotationButton.text('准备..');
         uploadAnnotationButton.prop('disabled', true);
-        const overlay = showOverlay('File is being uploaded..');
+        const overlay = showOverlay('文件正在上传..');
 
         const fileReader = new FileReader();
         fileReader.onload = (loadedFileEvent) => {
@@ -87,7 +87,7 @@ function uploadAnnotation(shapeCollectionModel, historyModel,
                     showMessage(err.message);
                     return;
                 } finally {
-                    uploadAnnotationButton.text('Upload Annotation');
+                    uploadAnnotationButton.text('上传注释');
                     uploadAnnotationButton.prop('disabled', false);
                 }
 
@@ -102,11 +102,11 @@ function uploadAnnotation(shapeCollectionModel, historyModel,
                     }
                 };
 
-                overlay.setMessage('Data are being imported..');
+                overlay.setMessage('正在导入数据..');
                 setTimeout(asyncImport);
             };
 
-            overlay.setMessage('File is being parsed..');
+            overlay.setMessage('正在解析文件..');
             setTimeout(asyncParse);
         };
         fileReader.readAsText(file);
@@ -384,8 +384,8 @@ function setupMenu(job, task, shapeCollectionModel,
                 contentType: 'application/json',
             });
         } catch (errorData) {
-            const message = `Can not update a job status. Code: ${errorData.status}. `
-                + `Message: ${errorData.responseText || errorData.statusText}`;
+            const message = `无法更新作业状态. 码: ${errorData.status}. `
+                + `信息: ${errorData.responseText || errorData.statusText}`;
             showMessage(message);
         }
     });
@@ -420,7 +420,7 @@ function setupMenu(job, task, shapeCollectionModel,
 
     $('#uploadAnnotationButton').on('click', () => {
         hide();
-        userConfirm('Current annotation will be removed from the client. Continue?',
+        userConfirm('当前注释将从客户端中删除。继续?',
             () => {
                 uploadAnnotation(shapeCollectionModel, historyModel, annotationParser, $('#uploadAnnotationButton'));
             });
@@ -429,7 +429,7 @@ function setupMenu(job, task, shapeCollectionModel,
     $('#removeAnnotationButton').on('click', () => {
         if (!window.cvat.mode) {
             hide();
-            userConfirm('Do you want to remove all annotations? The action cannot be undone!',
+            userConfirm('要删除所有注释吗？ 行动无法撤消!',
                 () => {
                     historyModel.empty();
                     shapeCollectionModel.empty();
@@ -508,7 +508,7 @@ function buildAnnotationUI(jobData, taskData, imageMetaData, annotationData, loa
                     }
                     return null;
                 } catch (error) {
-                    showMessage('Bad URL has been received');
+                    showMessage('收到了错误的网址');
                     this.value = window.location.href;
                     return null;
                 }
@@ -665,8 +665,8 @@ function buildAnnotationUI(jobData, taskData, imageMetaData, annotationData, loa
 function callAnnotationUI(jid) {
     function onError(errorData) {
         $('body').empty();
-        const message = `Can not build CVAT annotation UI. Code: ${errorData.status}. `
-            + `Message: ${errorData.responseText || errorData.statusText}`;
+        const message = `无法构建CVAT注释UI. 码: ${errorData.status}. `
+            + `信息: ${errorData.responseText || errorData.statusText}`;
         showMessage(message);
     }
 
