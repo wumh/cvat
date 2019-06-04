@@ -304,16 +304,16 @@ class ShapeBufferController {
                         let endFrame = Math.min(window.cvat.player.frames.stop, curFrame + this._model.propagateFrames);
                         let imageSizes = window.cvat.job.images;
 
-                        let message = `Propagate up to ${endFrame} frame. `;
+                        let message = `传播到 ${endFrame} 帧. `;
                         let refSize = imageSizes[curFrame - startFrame] || imageSizes[0];
                         for (let _frame = curFrame + 1; _frame <= endFrame; _frame ++) {
                             let size = imageSizes[_frame - startFrame] || imageSizes[0];
                             if ((size.width != refSize.width) || (size.height != refSize.height) ) {
-                                message += 'Some covered frames have another resolution. Shapes in them can differ from reference. ';
+                                message += '一些覆盖的帧有另一种分辨率.它们中的形状可能与参考不同. ';
                                 break;
                             }
                         }
-                        message += 'Are you sure?';
+                        message += '你确定吗?';
 
                         propagateDialogShowed = true;
                         userConfirm(message, () => {

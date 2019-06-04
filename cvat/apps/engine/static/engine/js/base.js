@@ -145,8 +145,8 @@ async function dumpAnnotationRequest(tid, taskName) {
                         resolve();
                     }
                 }).fail((errorData) => {
-                    const message = `Can not dump annotations for the task. Code: ${errorData.status}. `
-                        + `Message: ${errorData.responseText || errorData.statusText}`;
+                    const message = `无法转储任务的注释. 码: ${errorData.status}. `
+                        + `信息: ${errorData.responseText || errorData.statusText}`;
                     reject(new Error(message));
                 });
         }

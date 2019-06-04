@@ -9,7 +9,7 @@
 
 {% block content %}
 	<div class="login">
-		<h1>Create user</h1>
+		<h1>创建用户</h1>
 		<form method="post" action="{% url 'register' %}">
             {% csrf_token %}
             {% for field in form %}
@@ -22,7 +22,7 @@
             {% endfor %}
 
 			<input type="hidden" name="next" value="{{ next }}" />
-			<button type="submit" class="btn btn-primary btn-block btn-large">Register</button>
+			<button type="submit" class="btn btn-primary btn-block btn-large">注册</button>
 		</form>
 	</div>
 

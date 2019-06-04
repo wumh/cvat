@@ -40,8 +40,8 @@ class TaskView {
                 this._disable();
             },
             error: (errorData) => {
-                const message = `Can not build CVAT dashboard. Code: ${errorData.status}. ` +
-                    `Message: ${errorData.responseText || errorData.statusText}`;
+                const message = `无法构建CVAT仪表板. 码: ${errorData.status}. ` +
+                    `信息: ${errorData.responseText || errorData.statusText}`;
                 showMessage(message);
             }
         });
@@ -69,10 +69,10 @@ class TaskView {
                 }).done(() => {
                     this._onupdate();
                     dashboardUpdateModal.remove();
-                    showMessage('Task has been successfully updated');
+                    showMessage('任务已成功更新');
                 }).fail((errorData) => {
-                    const message = `Can not build CVAT dashboard. Code: ${errorData.status}. ` +
-                        `Message: ${errorData.responseText || errorData.statusText}`;
+                    const message = `无法构建CVAT仪表板. 码: ${errorData.status}. ` +
+                        `信息: ${errorData.responseText || errorData.statusText}`;
                     showMessage(message);
                 });
             } catch (exception) {
@@ -168,7 +168,7 @@ class TaskView {
 
         async function onload(overlay, text) {
             try {
-                overlay.setMessage('Required data are being downloaded from the server..');
+                overlay.setMessage('正在从服务器下载所需的数据..');
                 const imageCache = await $.get(`/api/v1/tasks/${this._id}/frames/meta`);
                 const labelsCopy = JSON.parse(JSON.stringify(this._labels));
                 const parser = new AnnotationParser({
@@ -178,21 +178,21 @@ class TaskView {
                     image_meta_data: imageCache,
                 }, new LabelsInfo(labelsCopy));
 
-                overlay.setMessage('The annotation file is being parsed..');
+                overlay.setMessage('正在解析注释文件..');
                 const parsed = parser.parse(text);
 
-                overlay.setMessage('The annotation is being saved..');
+                overlay.setMessage('正在保存注释..');
                 await save.call(this, parsed);
 
-                const message = 'Annotation have been successfully uploaded';
+                const message = '注释已成功上传';
                 showMessage(message);
             } catch(errorData) {
                 let message = null;
                 if (typeof(errorData) === 'string') {
-                    message = `Can not upload annotations. ${errorData}`;
+                    message = `无法上传注释. ${errorData}`;
                 } else {
-                    message = `Can not upload annotations. Code: ${errorData.status}. ` +
-                        `Message: ${errorData.responseText || errorData.statusText}`;
+                    message = `无法上传注释. 码: ${errorData.status}. ` +
+                        `信息: ${errorData.responseText || errorData.statusText}`;
                 }
                 showMessage(message);
             } finally {
@@ -204,7 +204,7 @@ class TaskView {
             const file = e.target.files[0];
             $(e.target).remove();
             if (file) {
-                const overlay = showOverlay('File is being parsed..');
+                const overlay = showOverlay('正在解析文件..');
                 const fileReader = new FileReader();
                 fileReader.onload = (e) => {
                     onload.call(this, overlay, e.target.result);
@@ -249,24 +249,24 @@ class TaskView {
 
 
         const buttonsContainer = $(`<div class="dashboardButtonsUI"> </div>`).appendTo(this._UI);
-        $('<button class="regular dashboardButtonUI"> Dump Annotation </button>').on('click', (e) => {
+        $('<button class="regular dashboardButtonUI"> 转储注释 </button>').on('click', (e) => {
             self._dump(e.target);
         }).appendTo(buttonsContainer);
 
-        $('<button class="regular dashboardButtonUI"> Upload Annotation </button>').on('click', () => {
-            userConfirm("The current annotation will be lost. Are you sure?", () => self._upload());
+        $('<button class="regular dashboardButtonUI"> 上传注释 </button>').on('click', () => {
+            userConfirm("当前注释将丢失. 你确定吗?", () => self._upload());
         }).appendTo(buttonsContainer);
 
-        $('<button class="regular dashboardButtonUI"> Update Task </button>').on('click', () => {
+        $('<button class="regular dashboardButtonUI"> 更新任务 </button>').on('click', () => {
             self._update();
         }).appendTo(buttonsContainer);
 
-        $('<button class="regular dashboardButtonUI"> Delete Task </button>').on('click', () => {
-            userConfirm("The task will be removed. Are you sure?", () => self._remove());
+        $('<button class="regular dashboardButtonUI"> 删除任务 </button>').on('click', () => {
+            userConfirm("该任务将被删除. 你确定吗?", () => self._remove());
         }).appendTo(buttonsContainer);
 
         if (this._bug_tracker) {
-            $('<button class="regular dashboardButtonUI"> Open Bug Tracker </button>').on('click', () => {
+            $('<button class="regular dashboardButtonUI"> 任务说明 </button>').on('click', () => {
                 window.open(this._bug_tracker);
             }).appendTo(buttonsContainer);
         }
@@ -283,7 +283,7 @@ class TaskView {
         this._UI.append($(`
             <div class="dashboardJobsUI">
                 <center class="dashboardTitleWrapper">
-                    <label class="regular h1"> Jobs </label>
+                    <label class="regular h1"> 工作 </label>
                 </center>
             </div>
         `).append(jobsContainer));
@@ -327,7 +327,7 @@ class DashboardView {
             },
             ajax: {
                 beforeSend() {
-                    overlay = showOverlay('Loading..');
+                    overlay = showOverlay('载入中..');
                 },
             },
             callback: function(pageList) {
@@ -347,8 +347,8 @@ class DashboardView {
                             Object.assign(details, taskData);
                             taskView.init(details);
                         }).fail((errorData) => {
-                            const message = `Can not get task from server. Showed info may be obsolete. Code: ${errorData.status}. ` +
-                                `Message: ${errorData.responseText || errorData.statusText}`;
+                            const message = `无法从服务器获取任务。 显示的信息可能已过时. 码: ${errorData.status}. ` +
+                                `信息: ${errorData.responseText || errorData.statusText}`;
                             showMessage(message);
                         })
                     });
@@ -427,7 +427,7 @@ class DashboardView {
         function updateSelectedFiles() {
             switch (files.length) {
             case 0:
-                filesLabel.text('No Files');
+                filesLabel.text('没有文件');
                 break;
             case 1:
                 filesLabel.text(typeof(files[0]) === 'string' ? files[0] : files[0].name);
@@ -477,17 +477,17 @@ class DashboardView {
                             onSuccess();
                         }
                         else if (data.state === 'Failed') {
-                            const message = `Can not create task. ${data.message}`;
+                            const message = `无法创建任务. ${data.message}`;
                             onError(message);
                         } else {
-                            const message = `Unknown state has been received: ${data.state}`;
+                            const message = `已收到未知状态: ${data.state}`;
                             onError(message);
                         }
 
                     }
                 }).fail((errorData) => {
-                    const message = `Can not check task status. Code: ${errorData.status}. ` +
-                        `Message: ${errorData.responseText || errorData.statusText}`;
+                    const message = `无法检查任务状态. 码: ${errorData.status}. ` +
+                        `信息: ${errorData.responseText || errorData.statusText}`;
                     onError(message);
                 });
             }
@@ -649,42 +649,42 @@ class DashboardView {
         submitCreate.on('click', () => {
             if (!validateName(name)) {
                 taskMessage.css('color', 'red');
-                taskMessage.text('Bad task name');
+                taskMessage.text('任务名称错误');
                 return;
             }
 
             if (!validateLabels(labels)) {
                 taskMessage.css('color', 'red');
-                taskMessage.text('Bad labels specification');
+                taskMessage.text('标签规范不好');
                 return;
             }
 
             if (!validateSegmentSize(segmentSize)) {
                 taskMessage.css('color', 'red');
-                taskMessage.text('Segment size out of range');
+                taskMessage.text('细分范围超出范围');
                 return;
             }
 
             if (!validateBugTracker(bugTrackerLink)) {
                 taskMessage.css('color', 'red');
-                taskMessage.text('Bad bag tracker link');
+                taskMessage.text('坏包跟踪链接');
                 return;
             }
 
             if (!validateOverlapSize(overlapSize, segmentSize)) {
                 taskMessage.css('color', 'red');
-                taskMessage.text('Overlap size must be positive and not more then segment size');
+                taskMessage.text('重叠大小必须是正数而不是段大小');
                 return;
             }
 
             if (files.length <= 0) {
                 taskMessage.css('color', 'red');
-                taskMessage.text('No files specified for the task');
+                taskMessage.text('没有为任务指定的文件');
                 return;
             }
             else if (files.length > window.maxUploadCount && source === 'local') {
                 taskMessage.css('color', 'red');
-                taskMessage.text('Too many files were specified. Please use share to upload');
+                taskMessage.text('指定了太多文件。 请使用分享上传');
                 return;
             }
             else if (source === 'local') {
@@ -694,7 +694,7 @@ class DashboardView {
                 }
                 if (commonSize > window.maxUploadSize) {
                     taskMessage.css('color', 'red');
-                    taskMessage.text('Too big files size. Please use share to upload');
+                    taskMessage.text('文件太大。 请使用分享上传');
                     return;
                 }
             }
@@ -733,7 +733,7 @@ class DashboardView {
                 contentType: 'application/json'
             }).done((taskData) => {
                 taskMessage.css('color', 'green');
-                taskMessage.text('Task has been created. Uploading the data..');
+                taskMessage.text('任务已创建。 上传数据..');
 
                 const batchOfFiles = new FormData();
                 for (let j = 0; j < files.length; j++) {
@@ -751,7 +751,7 @@ class DashboardView {
                     contentType: false,
                     processData: false
                 }).done(() => {
-                    taskMessage.text('The data has been sent. Task is being created..');
+                    taskMessage.text('数据已发送。 正在创建任务..');
 
                     requestCreatingStatus(taskData.id, (status) => {
                         taskMessage.css('color', 'blue');
@@ -780,16 +780,16 @@ class DashboardView {
                         cleanupTask(taskData.id);
                     });
                 }).fail((errorData) => {
-                    const message = `Can not put the data for the task. Code: ${errorData.status}. ` +
-                        `Message: ${errorData.responseText || errorData.statusText}`;
+                    const message = `无法为任务提供数据. 码: ${errorData.status}. ` +
+                        `信息: ${errorData.responseText || errorData.statusText}`;
                     taskMessage.css('color', 'red');
                     taskMessage.text(message);
                     submitCreate.prop('disabled', false);
                     cleanupTask(taskData.id);
                 });
             }).fail((errorData) => {
-                const message = `Task has not been created. Code: ${errorData.status}. ` +
-                    `Message: ${errorData.responseText || errorData.statusText}`;
+                const message = `尚未创建任务,错误码: ${errorData.status}. ` +
+                    `信息: ${errorData.responseText || errorData.statusText}`;
                 taskMessage.css('color', 'red');
                 taskMessage.text(message);
                 submitCreate.prop('disabled', false);
@@ -825,13 +825,13 @@ window.addEventListener('DOMContentLoaded', () => {
         }
         catch(exception) {
             $('#content').empty();
-            const message = `Can not build CVAT dashboard. Exception: ${exception}.`;
+            const message = `无法构建CVAT仪表板. 例外: ${exception}.`;
             showMessage(message);
         }
     }).fail((errorData) => {
         $('#content').empty();
-        const message = `Can not build CVAT dashboard. Code: ${errorData.status}. ` +
-            `Message: ${errorData.responseText || errorData.statusText}`;
+        const message = `无法构建CVAT仪表板. 码: ${errorData.status}. ` +
+            `信息: ${errorData.responseText || errorData.statusText}`;
         showMessage(message);
     }).always(() => {
         $('#loadingOverlay').remove();

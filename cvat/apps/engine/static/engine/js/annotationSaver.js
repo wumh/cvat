@@ -46,8 +46,8 @@ class AnnotationSaverModel extends Listener {
             }).done((savedData) => {
                 resolve(savedData);
             }).fail((errorData) => {
-                const message = `Could not make ${action} annotations. Code: ${errorData.status}. `
-                    + `Message: ${errorData.responseText || errorData.statusText}`;
+                const message = `无法进行 ${action} 注释. 码: ${errorData.status}. `
+                    + `信息: ${errorData.responseText || errorData.statusText}`;
                 reject(new Error(message));
             });
         });
@@ -63,8 +63,8 @@ class AnnotationSaverModel extends Listener {
             }).done((savedData) => {
                 resolve(savedData);
             }).fail((errorData) => {
-                const message = `Could not put annotations. Code: ${errorData.status}. `
-                    + `Message: ${errorData.responseText || errorData.statusText}`;
+                const message = `无法注释. 码: ${errorData.status}. `
+                    + `信息: ${errorData.responseText || errorData.statusText}`;
                 reject(new Error(message));
             });
         });
@@ -111,7 +111,7 @@ class AnnotationSaverModel extends Listener {
             }).fail((errorData) => {
                 annotationLogs.save();
                 const message = `Could not send logs. Code: ${errorData.status}. `
-                    + `Message: ${errorData.responseText || errorData.statusText}`;
+                    + `信息: ${errorData.responseText || errorData.statusText}`;
                 reject(new Error(message));
             });
         });
@@ -357,7 +357,7 @@ class AnnotationSaverView {
 
         window.onbeforeunload = (e) => {
             if (this._controller.hasUnsavedChanges()) { // eslint-disable-line react/no-this-in-sfc
-                const message = 'You have unsaved changes. Leave this page?';
+                const message = '您有未保存的更改。 离开这个页面?';
                 e.returnValue = message;
                 return message;
             }
@@ -368,27 +368,27 @@ class AnnotationSaverView {
     onAnnotationSaverUpdate(state) {
         if (state.status === 'saveStart') {
             this._overlay = showOverlay('Annotations are being saved..');
-            this._saveButton.prop('disabled', true).text('Saving..');
+            this._saveButton.prop('disabled', true).text('保存..');
         } else if (state.status === 'saveDone') {
-            this._saveButton.text('Successful save');
+            this._saveButton.text('成功保存');
             this._overlay.remove();
         } else if (state.status === 'saveError') {
-            this._saveButton.prop('disabled', false).text('Save Work');
-            const message = `Couldn't to save the job. Errors occured: ${state.message}. `
-                + 'Please report the problem to support team immediately.';
+            this._saveButton.prop('disabled', false).text('保存工作');
+            const message = `无法保存这份工作. 发生了错误: ${state.message}. `
+                + '请立即向支持团队报告问题.';
             showMessage(message);
             this._overlay.remove();
         } else if (state.status === 'saveCreated') {
-            this._overlay.setMessage(`${this._overlay.getMessage()} <br /> - Created objects are being saved..`);
+            this._overlay.setMessage(`${this._overlay.getMessage()} <br /> - 正在保存创建的对象..`);
         } else if (state.status === 'saveUpdated') {
-            this._overlay.setMessage(`${this._overlay.getMessage()} <br /> - Updated objects are being saved..`);
+            this._overlay.setMessage(`${this._overlay.getMessage()} <br /> - 正在保存更新的对象..`);
         } else if (state.status === 'saveDeleted') {
-            this._overlay.setMessage(`${this._overlay.getMessage()} <br /> - Deleted objects are being saved..`);
+            this._overlay.setMessage(`${this._overlay.getMessage()} <br /> - 正在保存已删除的对象..`);
         } else if (state.status === 'saveUnlocked') {
-            this._saveButton.prop('disabled', false).text('Save Work');
+            this._saveButton.prop('disabled', false).text('保存工作');
         } else {
-            const message = `Unknown state has been reached during annotation saving: ${state.status} `
-                + 'Please report the problem to support team immediately.';
+            const message = `注释保存期间已达到未知状态: ${state.status} `
+                + '请立即向支持团队报告问题.';
             showMessage(message);
         }
     }

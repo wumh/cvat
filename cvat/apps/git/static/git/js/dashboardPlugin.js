@@ -27,7 +27,7 @@ window.addEventListener('dashboardReady', () => {
                     <table style="width: 100%;">
                         <tr>
                             <td style="width: 20%;">
-                                <label class="regular h2"> Repository URL: </label>
+                                <label class="regular h2"> 存储库URL: </label>
                             </td>
                             <td style="width: 80%;" colspan="2">
                                 <input class="regular h2" type="text" style="width: 92%;" id="${reposURLTextId}" readonly/>
@@ -35,7 +35,7 @@ window.addEventListener('dashboardReady', () => {
                         </td>
                         <tr>
                             <td style="width: 20%;">
-                                <label class="regular h2"> Status: </label>
+                                <label class="regular h2"> 状态: </label>
                             </td>
                             <td style="width: 60%;">
                                 <div>
@@ -44,13 +44,13 @@ window.addEventListener('dashboardReady', () => {
                                 </div>
                             </td>
                             <td style="width: 20%;">
-                                <button style="width: 70%;" id="${reposSyncButtonId}" class="regular h2"> Sync </button>
+                                <button style="width: 70%;" id="${reposSyncButtonId}" class="regular h2"> 同步 </button>
                             </td>
                         </tr>
                     </table>
                 </div>
                 <center>
-                    <button id="${closeReposWindowButtonId}" class="regular h1" style="margin-top: 15px;"> Close </button>
+                    <button id="${closeReposWindowButtonId}" class="regular h1" style="margin-top: 15px;"> 关闭 </button>
                 </center>
             </div>
         </div>`;
@@ -68,7 +68,7 @@ window.addEventListener('dashboardReady', () => {
                     this.style.background = 'mistyrose';
                 }
 
-                $('<button> Git Repository Sync </button>').addClass('regular dashboardButtonUI').on('click', () => {
+                $('<button> Git存储库同步 </button>').addClass('regular dashboardButtonUI').on('click', () => {
                     $(`#${reposWindowId}`).remove();
                     const gitWindow = $(reposWindowTemplate).appendTo('body');
                     const closeReposWindowButton = $(`#${closeReposWindowButtonId}`);
@@ -78,9 +78,9 @@ window.addEventListener('dashboardReady', () => {
                     const reposURLText = $(`#${reposURLTextId}`);
 
                     function updateState() {
-                        reposURLText.attr('placeholder', 'Waiting for server response..');
+                        reposURLText.attr('placeholder', '等待服务器响应..');
                         reposURLText.prop('value', '');
-                        gitLabelMessage.css('color', '#cccc00').text('Waiting for server response..');
+                        gitLabelMessage.css('color', '#cccc00').text('等待服务器响应..');
                         gitLabelStatus.css('color', '#cccc00').text('\u25cc');
                         reposSyncButton.attr('disabled', true);
 
@@ -97,26 +97,26 @@ window.addEventListener('dashboardReady', () => {
 
                             if (data.status.value === '!sync') {
                                 gitLabelStatus.css('color', 'red').text('\u2606');
-                                gitLabelMessage.css('color', 'red').text('Repository is not synchronized');
+                                gitLabelMessage.css('color', 'red').text('存储库未同步');
                                 reposSyncButton.attr('disabled', false);
                             } else if (data.status.value === 'sync') {
                                 gitLabelStatus.css('color', '#cccc00').text('\u2605');
-                                gitLabelMessage.css('color', 'black').text('Synchronized (merge required)');
+                                gitLabelMessage.css('color', 'black').text('同步（需要合并）');
                             } else if (data.status.value === 'merged') {
                                 gitLabelStatus.css('color', 'darkgreen').text('\u2605');
-                                gitLabelMessage.css('color', 'darkgreen').text('Synchronized');
+                                gitLabelMessage.css('color', 'darkgreen').text('同步');
                             } else if (data.status.value === 'syncing') {
-                                gitLabelMessage.css('color', '#cccc00').text('Synchronization..');
+                                gitLabelMessage.css('color', '#cccc00').text('同步..');
                                 gitLabelStatus.css('color', '#cccc00').text('\u25cc');
                             } else {
-                                const message = `Got unknown repository status: ${data.status.value}`;
+                                const message = `有未知的存储库状态: ${data.status.value}`;
                                 gitLabelStatus.css('color', 'red').text('\u26a0');
                                 gitLabelMessage.css('color', 'red').text(message);
                             }
                         }).fail((data) => {
                             gitWindow.remove();
-                            const message = 'Error occured during get an repos status. '
-                                + `Code: ${data.status}, text: ${data.responseText || data.statusText}`;
+                            const message = '在获取回购状态期间发生错误. '
+                                + `码: ${data.status}, 文本: ${data.responseText || data.statusText}`;
                             showMessage(message);
                         });
                     }
@@ -135,7 +135,7 @@ window.addEventListener('dashboardReady', () => {
                             }
                         }
 
-                        gitLabelMessage.css('color', '#cccc00').text('Synchronization..');
+                        gitLabelMessage.css('color', '#cccc00').text('同步..');
                         gitLabelStatus.css('color', '#cccc00').text('\u25cc');
                         reposSyncButton.attr('disabled', true);
 
@@ -147,23 +147,23 @@ window.addEventListener('dashboardReady', () => {
                                     } else if (statusData.status === 'finished') {
                                         updateState();
                                     } else if (statusData.status === 'failed') {
-                                        const message = `Can not push to remote repository. Message: ${statusData.stderr}`;
+                                        const message = `无法推送到远程存储库. 信息: ${statusData.stderr}`;
                                         badResponse(message);
                                     } else {
-                                        const message = `Check returned status "${statusData.status}".`;
+                                        const message = `检查返回状态 "${statusData.status}".`;
                                         badResponse(message);
                                     }
                                 }).fail((errorData) => {
-                                    const message = 'Errors occured during pushing an repos entry. '
-                                        + `Code: ${errorData.status}, text: ${errorData.responseText || errorData.statusText}`;
+                                    const message = '在推送回购条目期间发生错误. '
+                                        + `码: ${errorData.status}, 文本: ${errorData.responseText || errorData.statusText}`;
                                     badResponse(message);
                                 });
                             }
 
                             setTimeout(checkCallback, 1000);
                         }).fail((errorData) => {
-                            const message = 'Errors occured during pushing an repos entry. '
-                                + `Code: ${errorData.status}, text: ${errorData.responseText || errorData.statusText}`;
+                            const message = '在推送回购条目期间发生错误. '
+                                + `码: ${errorData.status}, 文本: ${errorData.responseText || errorData.statusText}`;
                             badResponse(message);
                         });
                     });
@@ -173,26 +173,26 @@ window.addEventListener('dashboardReady', () => {
             }
         });
     }).fail((errorData) => {
-        const message = `Can not get repository meta information. Code: ${errorData.status}. `
-            + `Message: ${errorData.responseText || errorData.statusText}`;
+        const message = `无法获取存储库元信息. 码: ${errorData.status}. `
+            + `信息: ${errorData.responseText || errorData.statusText}`;
         showMessage(message);
     });
 
     // Setup the "Create task" dialog
-    const title = 'Field for a repository URL and a relative path inside the repository. \n'
-        + 'Default repository path is `annotation/<dump_file_name>.zip`. \n'
-        + 'There are .zip or .xml extenstions are supported.';
+    const title = '存储库URL的字段和存储库中的相对路径. \n'
+        + '默认存储库路径是 `annotation/<dump_file_name>.zip`. \n'
+        + '支持.zip或.xml扩展名.';
     const placeh = 'github.com/user/repos [annotation/<dump_file_name>.zip]';
 
     $(`
         <tr>
-            <td> <label class="regular h2"> Dataset Repository: </label> </td>
+            <td> <label class="regular h2"> 数据集存储库: </label> </td>
             <td>
                 <input type="text" id="${createURLInputTextId}" class="regular" style="width: 90%", placeholder="${placeh}" title="${title}"/>
             </td>
         </tr>
         <tr>
-            <td> <label class="regular h2" checked> Use LFS: </label> </td>
+            <td> <label class="regular h2" checked> 使用LFS: </label> </td>
             <td> <input type="checkbox" checked id="${lfsCheckboxId}" </td>
         </tr>`).insertAfter($('#dashboardBugTrackerInput').parent().parent());
 
@@ -205,7 +205,7 @@ window.addEventListener('dashboardReady', () => {
 
         if (path.length) {
             taskMessage.css('color', 'blue');
-            taskMessage.text('Git repository is being cloned..');
+            taskMessage.text('正在克隆Git存储库..');
 
             $.ajax({
                 url: `/git/repository/create/${taskData.id}`,
@@ -226,10 +226,10 @@ window.addEventListener('dashboardReady', () => {
                             setTimeout(checkCallback, 1000);
                         } else if (statusData.status === 'finished') {
                             taskMessage.css('color', 'blue');
-                            taskMessage.text('Git repository has been cloned');
+                            taskMessage.text('已经克隆了Git存储库');
                             next();
                         } else if (statusData.status === 'failed') {
-                            let message = 'Repository status check failed. ';
+                            let message = '存储库状态检查失败. ';
                             if (statusData.stderr) {
                                 message += statusData.stderr;
                             }
@@ -238,14 +238,14 @@ window.addEventListener('dashboardReady', () => {
                             taskMessage.text(message);
                             onFault();
                         } else {
-                            const message = `Repository status check returned the status "${statusData.status}"`;
+                            const message = `存储库状态检查返回状态 "${statusData.status}"`;
                             taskMessage.css('color', 'red');
                             taskMessage.text(message);
                             onFault();
                         }
                     }).fail((errorData) => {
-                        const message = `Can not sent a request to clone the repository. Code: ${errorData.status}. `
-                            + `Message: ${errorData.responseText || errorData.statusText}`;
+                        const message = `无法发送克隆存储库的请求. 码: ${errorData.status}. `
+                            + `信息: ${errorData.responseText || errorData.statusText}`;
                         taskMessage.css('color', 'red');
                         taskMessage.text(message);
                         onFault();
@@ -254,8 +254,8 @@ window.addEventListener('dashboardReady', () => {
 
                 setTimeout(checkCallback, 1000);
             }).fail((errorData) => {
-                const message = `Can not sent a request to clone the repository. Code: ${errorData.status}. `
-                    + `Message: ${errorData.responseText || errorData.statusText}`;
+                const message = `无法发送克隆存储库的请求. 码: ${errorData.status}. `
+                    + `信息: ${errorData.responseText || errorData.statusText}`;
                 taskMessage.css('color', 'red');
                 taskMessage.text(message);
                 onFault();

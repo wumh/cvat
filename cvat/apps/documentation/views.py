@@ -19,3 +19,10 @@ def XmlFormatView(request):
 
     return render(request, 'documentation/xml_format.html',
         context={"xml_format": open(doc_path, "r").read()})
+
+def Explain(request,name):
+        module_dir = os.path.dirname(__file__)
+        doc_path = os.path.join(module_dir,'explain/'+name+'.md')
+
+        return render(request,'documentation/explain.html',
+        context={"explain": open(doc_path,"r").read()})

@@ -18,21 +18,21 @@ window.addEventListener('dashboardReady', () => {
                     button.text(`Cancel TF Annotation (${progress}%)`);
                     setTimeout(checkCallback, 5000);
                 } else {
-                    button.text('Run TF Annotation');
+                    button.text('运行TF注释');
                     button.removeClass('tfAnnotationProcess');
                     button.prop('disabled', false);
 
                     if (statusData.status === 'failed') {
-                        const message = `Tensorflow annotation failed. Error: ${statusData.stderr}`;
+                        const message = `Tensorflow注释失败. 错误: ${statusData.stderr}`;
                         showMessage(message);
                     } else if (statusData.status !== 'finished') {
-                        const message = `Tensorflow annotation check request returned status "${statusData.status}"`;
+                        const message = `Tensorflow注释检查请求返回状态 "${statusData.status}"`;
                         showMessage(message);
                     }
                 }
             }).fail((errorData) => {
-                const message = `Can not sent tensorflow annotation check request. Code: ${errorData.status}. `
-                    + `Message: ${errorData.responseText || errorData.statusText}`;
+                const message = `无法发送tensorflow注释检查请求. 码: ${errorData.status}. `
+                    + `信息: ${errorData.responseText || errorData.statusText}`;
                 showMessage(message);
             });
         }
@@ -43,13 +43,13 @@ window.addEventListener('dashboardReady', () => {
 
     function runProcess(tid, button) {
         $.get(`/tensorflow/annotation/create/task/${tid}`).done(() => {
-            showMessage('Process has started');
-            button.text('Cancel TF Annotation (0%)');
+            showMessage('流程已经开始');
+            button.text('取消TF注释 (0%)');
             button.addClass('tfAnnotationProcess');
             checkProcess(tid, button);
         }).fail((errorData) => {
-            const message = `Can not run tf annotation. Code: ${errorData.status}. `
-                + `Message: ${errorData.responseText || errorData.statusText}`;
+            const message = `无法运行tf注释. 码: ${errorData.status}. `
+                + `信息: ${errorData.responseText || errorData.statusText}`;
             showMessage(message);
         });
     }
@@ -59,8 +59,8 @@ window.addEventListener('dashboardReady', () => {
         $.get(`/tensorflow/annotation/cancel/task/${tid}`).done(() => {
             button.prop('disabled', true);
         }).fail((errorData) => {
-            const message = `Can not cancel tf annotation. Code: ${errorData.status}. `
-                + `Message: ${errorData.responseText || errorData.statusText}`;
+            const message = `无法取消注释. 码: ${errorData.status}. `
+                + `信息: ${errorData.responseText || errorData.statusText}`;
             showMessage(message);
         });
     }
@@ -68,15 +68,15 @@ window.addEventListener('dashboardReady', () => {
 
     function setupDashboardItem(item, metaData) {
         const tid = +item.attr('tid');
-        const button = $('<button> Run TF Annotation </button>');
+        const button = $('<button> 运行TF注释 </button>');
 
         button.on('click', () => {
             if (button.hasClass('tfAnnotationProcess')) {
-                userConfirm('The process will be canceled. Continue?', () => {
+                userConfirm('该过程将被取消. 继续?', () => {
                     cancelProcess(tid, button);
                 });
             } else {
-                userConfirm('The current annotation will be lost. Are you sure?', () => {
+                userConfirm('当前注释将丢失。 你确定吗？', () => {
                     runProcess(tid, button);
                 });
             }
@@ -86,7 +86,7 @@ window.addEventListener('dashboardReady', () => {
         button.appendTo(item.find('div.dashboardButtonsUI'));
 
         if ((tid in metaData) && (metaData[tid].active)) {
-            button.text('Cancel TF Annotation');
+            button.text('取消TF注释');
             button.addClass('tfAnnotationProcess');
             checkProcess(tid, button);
         }
@@ -105,8 +105,8 @@ window.addEventListener('dashboardReady', () => {
             setupDashboardItem($(this), metaData);
         });
     }).fail((errorData) => {
-        const message = `Can not get tf annotation meta info. Code: ${errorData.status}. `
-            + `Message: ${errorData.responseText || errorData.statusText}`;
+        const message = `无法获得注释元信息. 码: ${errorData.status}. `
+            + `信息: ${errorData.responseText || errorData.statusText}`;
         showMessage(message);
     });
 });

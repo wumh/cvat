@@ -15,15 +15,15 @@
 /* eslint no-underscore-dangle: 0 */
 
 window.addEventListener('DOMContentLoaded', () => {
-    $('<option value="auto_segmentation" class="regular"> Auto Segmentation </option>').appendTo('#shapeTypeSelector');
+    $('<option value="auto_segmentation" class="regular"> 自动分段 </option>').appendTo('#shapeTypeSelector');
 
     const dextrCancelButtonId = 'dextrCancelButton';
     const dextrOverlay = $(`
         <div class="modal hidden force-modal">
             <div class="modal-content" style="width: 300px; height: 70px;">
-                <center> <label class="regular h2"> Segmentation request is being processed </label></center>
+                <center> <label class="regular h2"> 正在处理分段请求 </label></center>
                 <center style="margin-top: 5px;">
-                    <button id="${dextrCancelButtonId}" class="regular h2" style="width: 250px;"> Cancel </button>
+                    <button id="${dextrCancelButtonId}" class="regular h2" style="width: 250px;"> 取消 </button>
                 </center>
             </div>
         </div>`).appendTo('body');
@@ -35,8 +35,8 @@ window.addEventListener('DOMContentLoaded', () => {
             url: `/dextr/cancel/${window.cvat.job.id}`,
             type: 'GET',
             error: (errorData) => {
-                const message = `Can not cancel segmentation. Code: ${errorData.status}.
-                    Message: ${errorData.responseText || errorData.statusText}`;
+                const message = `无法取消细分. 码: ${errorData.status}.
+                    信息: ${errorData.responseText || errorData.statusText}`;
                 showMessage(message);
             },
             complete: () => {
@@ -55,7 +55,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 get: () => instance._defaultType,
                 set: (type) => {
                     if (!['box', 'points', 'polygon', 'polyline', 'auto_segmentation'].includes(type)) {
-                        throw Error(`Unknown shape type found ${type}`);
+                        throw Error(`找到未知的形状类型 ${type}`);
                     }
                     instance._defaultType = type;
                 },
@@ -115,7 +115,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     actualPoints = PolyShapeModel.convertStringToNumberArray(actualPoints);
 
                     if (actualPoints.length < 4) {
-                        showMessage('It is need to specify minimum four extreme points for an object');
+                        showMessage('需要为对象指定最少四个极值点');
                         instance._controller.switchCreateMode(true);
                         return;
                     }
@@ -163,12 +163,12 @@ window.addEventListener('DOMContentLoaded', () => {
                                                         instance._controller.finish({ points: jobData.result }, 'polygon');
                                                     }
                                                 } else if (jobData.status === 'failed') {
-                                                    const message = `Segmentation has fallen. Error: '${jobData.stderr}'`;
+                                                    const message = `细分已经下降. 错误: '${jobData.stderr}'`;
                                                     showMessage(message);
                                                 } else {
-                                                    let message = `Check segmentation request returned "${jobData.status}" status.`;
+                                                    let message = `检查分段请求已返回 "${jobData.status}" 状态.`;
                                                     if (jobData.stderr) {
-                                                        message += ` Error: ${jobData.stderr}`;
+                                                        message += ` 错误: ${jobData.stderr}`;
                                                     }
                                                     showMessage(message);
                                                 }
@@ -176,8 +176,8 @@ window.addEventListener('DOMContentLoaded', () => {
                                         },
                                         error: (errorData) => {
                                             dextrOverlay.addClass('hidden');
-                                            const message = `Can not check segmentation. Code: ${errorData.status}.`
-                                                + ` Message: ${errorData.responseText || errorData.statusText}`;
+                                            const message = `无法检查细分. 码: ${errorData.status}.`
+                                                + ` 信息: ${errorData.responseText || errorData.statusText}`;
                                             showMessage(message);
                                         },
                                     });
@@ -188,8 +188,8 @@ window.addEventListener('DOMContentLoaded', () => {
                                 setTimeout(intervalCallback, 1000);
                             },
                             error: (errorData) => {
-                                const message = `Can not cancel ReID process. Code: ${errorData.status}.`
-                                    + ` Message: ${errorData.responseText || errorData.statusText}`;
+                                const message = `无法取消ReID进程. 码: ${errorData.status}.`
+                                    + ` 信息: ${errorData.responseText || errorData.statusText}`;
                                 showMessage(message);
                             },
                         });

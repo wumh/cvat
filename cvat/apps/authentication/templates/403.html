@@ -8,10 +8,10 @@
 {% block title %}Forbidden{% endblock %}
 
 {% block content %}
-	<h1>Forbidden</h1>
+	<h1>被禁止</h1>
 	{% if user.is_authenticated %}
-    <p align="center">Your account doesn't have access to this page. To proceed,
-    please login with an account that has access or contact your admin.<br>
+    <p align="center">您的帐户无权访问此页面。 继续，
+             请使用有权访问的帐户登录或联系您的管理员<br>
     <big><a href="{% url 'login' %}">Login</a><big></p>
     {% endif %}
 {% endblock %}

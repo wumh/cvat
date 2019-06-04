@@ -1237,7 +1237,6 @@ class ShapeCollectionView {
             if (e.ctrlKey || e.which === 2 || e.target.classList.contains('svg_select_points')) {
                 return;
             }
-
             let frameHeight = window.cvat.player.geometry.frameHeight;
             let frameWidth = window.cvat.player.geometry.frameWidth;
             let pos = window.cvat.translate.point.clientToCanvas(this._frameBackground[0], e.clientX, e.clientY);
@@ -1264,7 +1263,7 @@ class ShapeCollectionView {
                         window.cvat.search.set('frame', null);
                         window.cvat.search.set('filter', null);
                     } else {
-                        showMessage('First save job in order to get static object URL');
+                        showMessage('首先保存作业以获取静态对象URL');
                     }
                 }
                 break;
@@ -1294,16 +1293,16 @@ class ShapeCollectionView {
         for (let button of $('#shapeContextMenu li')) {
             switch(button.getAttribute('action')) {
             case "change_color":
-                button.innerText = `Change Color (${shortkeys['change_shape_color'].view_value})`;
+                button.innerText = `改变颜色 (${shortkeys['change_shape_color'].view_value})`;
                 break;
             case "remove_shape":
-                button.innerText = `Remove Shape (${shortkeys['delete_shape'].view_value})`;
+                button.innerText = `删除图形 (${shortkeys['delete_shape'].view_value})`;
                 break;
             case "switch_occluded":
-                button.innerText = `Switch Occluded (${shortkeys['switch_occluded_property'].view_value})`;
+                button.innerText = `切换被遮挡 (${shortkeys['switch_occluded_property'].view_value})`;
                 break;
             case "switch_lock":
-                button.innerText = `Switch Lock (${shortkeys['switch_lock_property'].view_value})`;
+                button.innerText = `开关锁 (${shortkeys['switch_lock_property'].view_value})`;
                 break;
             }
         }
@@ -1324,7 +1323,7 @@ class ShapeCollectionView {
         for (let labelId in labels) {
             let lockButton = $(`<button> </button>`)
                 .addClass('graphicButton lockButton')
-                .attr('title', 'Switch lock for all object with same label')
+                .attr('title', '切换锁定所有具有相同标签的对象')
                 .on('click', () => {
                     this._controller.switchLabelLock(+labelId);
                 });
@@ -1349,7 +1348,7 @@ class ShapeCollectionView {
 
             let hiddenButton = $(`<button> </button>`)
                 .addClass('graphicButton hiddenButton')
-                .attr('title', 'Switch hide for all object with same label')
+                .attr('title', '切换隐藏所有具有相同标签的对象')
                 .on('click', () => {
                     this._controller.switchLabelHide(+labelId);
                 });

@@ -8,9 +8,9 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-	<h1>Login</h1>
+	<h1>登录</h1>
 	{% if form.errors %}
-		<small>Your username and password didn't match. Please try again.</small>
+		<small>您的用户名和密码不匹配。 请再试一次。</small>
 	{% endif %}
 	<form method="post" action="{% url 'login' %}">
 		{% csrf_token %}
@@ -18,12 +18,6 @@
 			{{ field }}
 		{% endfor %}
 		<input type="hidden" name="next" value="{{ next }}" />
-		<button type="submit" class="btn btn-primary btn-block btn-large">Login</button>
+		<button type="submit" class="btn btn-primary btn-block btn-large">登录</button>
 	</form>
-{% endblock %}
-
-{% block note%}
-    {% autoescape off %}
-	{{ note }}
-    {% endautoescape %}
 {% endblock %}

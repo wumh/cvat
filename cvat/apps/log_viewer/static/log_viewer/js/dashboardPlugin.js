@@ -5,7 +5,7 @@
  */
 
 window.addEventListener('DOMContentLoaded', () => {
-    $('<button class="regular h1" style="margin-left: 5px;"> Analytics </button>').on('click', () => {
+    $('<button class="regular h1" style="margin-left: 5px;"> 分析 </button>').on('click', () => {
         window.open('/analytics/app/kibana');
     }).appendTo('#dashboardManageButtons');
 });

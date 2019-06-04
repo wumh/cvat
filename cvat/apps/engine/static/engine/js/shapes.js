@@ -1604,10 +1604,10 @@ class ShapeView extends Listener {
                 if (type[1] === 'polygon') {
                     dragPolyItem.removeClass('hidden');
                     if (draggable) {
-                        dragPolyItem.text('Disable Dragging');
+                        dragPolyItem.text('禁用拖动');
                     }
                     else {
-                        dragPolyItem.text('Enable Dragging');
+                        dragPolyItem.text('启用拖动');
                     }
                 }
                 else {
@@ -2447,10 +2447,15 @@ class ShapeView extends Listener {
     _updateColorForDots() {
         let color = this._appearance.fill || this._appearance.colors.shape;
         let scaledStroke = SELECT_POINT_STROKE_WIDTH / window.cvat.player.geometry.scale;
-        $('.svg_select_points').each(function() {
-            this.instance.fill(color);
+        let colorArr = [0,8,16,24,32,54,57,60,63,33,35,40,44,48,46,84,90,102,87,93]
+        $('.svg_select_points').each(function(index,item) {
+            this.instance.fill(color)
             this.instance.stroke('black');
             this.instance.attr('stroke-width', scaledStroke);
+            
+            if($.inArray(parseInt(index),colorArr) !=-1){
+                this.instance.fill('red')
+            }
         });
     }
 
@@ -2548,7 +2553,7 @@ class ShapeView extends Listener {
 
         if (this._flags.resizing || this._flags.dragging) {
             Logger.addEvent(Logger.EventType.debugInfo, {
-                debugMessage: "Object has been updated during resizing/dragging",
+                debugMessage: "在调整大小/拖动期间已更新对象",
                 updateReason: model.updateReason,
             });
         }
@@ -2670,7 +2675,6 @@ class ShapeView extends Listener {
             break;
         }
         }
-
         if (model.active || activeAttribute != null) {
             this._select();
             if (activeAttribute === null) {
@@ -3128,22 +3132,31 @@ class PointsView extends PolyShapeView {
         if (this._uis.points) {
             return;
         }
-
         this._uis.points = this._scenes.svg.group()
             .fill(this._appearance.fill || this._appearance.colors.shape)
             .on('click', () => {
                 this._positionateMenus();
                 this._controller.click();
             }).addClass('pointTempGroup');
-
         this._uis.points.node.setAttribute('z_order', position.z_order);
 
+        let colorArr = [0,8,16,24,32,54,57,60,63,33,35,40,44,48,46,84,90,102,87,93]
         let points = PolyShapeModel.convertStringToNumberArray(position.points);
-        for (let point of points) {
+        for (var i in points) {
             let radius = POINT_RADIUS * 2 / window.cvat.player.geometry.scale;
             let scaledStroke = STROKE_WIDTH / window.cvat.player.geometry.scale;
-            this._uis.points.circle(radius).move(point.x - radius / 2, point.y - radius / 2)
+            let circlePoint = this._uis.points.circle(radius).move(points[i].x - radius / 2, points[i].y - radius / 2)
                 .fill('inherit').stroke('black').attr('stroke-width', scaledStroke).addClass('tempMarker');
+
+            let fontSize = 10/window.cvat.player.geometry.scale;
+            let textLeft = points[i].x + scaledStroke;
+            let textTop = points[i].y + window.cvat.player.geometry.scale
+            let textNumber = this._uis.points.text(String(parseInt(i)+1)).move(textLeft, textTop).attr('fill','#fff').font('size',fontSize);
+
+            if($.inArray(parseInt(i),colorArr) !=-1){
+                circlePoint.attr('fill','red')
+                textNumber.attr('fill','red')
+            }
         }
     }
 

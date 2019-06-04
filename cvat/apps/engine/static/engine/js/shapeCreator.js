@@ -212,12 +212,40 @@ class ShapeCreatorView {
             option.appendTo(this._labelSelector);
         }
 
+        this._typeSelector.attr('title',`
+            ${shortkeys['change_default_shape'].view_value} - ${shortkeys['change_default_shape'].description}`);
+
+        document.onkeydown = function (event){
+            switch (event.keyCode){                    
+                case 66://框
+                    $('#shapeTypeSelector option:eq(0)').prop('selected',true);
+                    $('#shapeTypeSelector').trigger('change');
+                    break;
+                case 80://点
+                    $('#shapeTypeSelector option:eq(1)').prop('selected',true);
+                    $('#shapeTypeSelector').trigger('change');
+                    break;
+                case 83://多边形
+                    $('#shapeTypeSelector option:eq(2)').prop('selected',true);
+                    $('#shapeTypeSelector').trigger('change');
+                    break;
+                case 76://折线
+                    $('#shapeTypeSelector option:eq(3)').prop('selected',true);
+                    $('#shapeTypeSelector').trigger('change');
+                    break;
+                case 65://自动注释
+                    $('#shapeTypeSelector option:eq(4)').prop('selected',true);
+                    $('#shapeTypeSelector').trigger('change');
+                    break;
+            }
+        } 
+
         this._typeSelector.on('change', (e) => {
             let type = $(e.target).prop('value');
             if (type != 'box' && this._modeSelector.prop('value') != 'annotation') {
                 this._modeSelector.prop('value', 'annotation');
                 this._controller.setDefaultShapeMode('annotation');
-                showMessage('Poly shapes available only like annotation shapes');
+                showMessage('多边形仅可用于注释形状');
             }
             this._controller.setDefaultShapeType(type);
         }).trigger('change');
@@ -231,7 +259,7 @@ class ShapeCreatorView {
             if (mode != 'annotation' && this._typeSelector.prop('value') != 'box') {
                 this._typeSelector.prop('value', 'box');
                 this._controller.setDefaultShapeType('box');
-                showMessage('Only boxes available like interpolation shapes');
+                showMessage('只有像插值形状一样的盒子');
             }
             this._controller.setDefaultShapeMode(mode);
         }).trigger('change');
@@ -258,9 +286,8 @@ class ShapeCreatorView {
             x: null,
             y: null,
         };
-
         let numberOfPoints = 0;
-
+        
         if (this._polyShapeSize) {
             let size = this._polyShapeSize;
             let sizeDecrement = function() {
@@ -284,6 +311,7 @@ class ShapeCreatorView {
         this._drawInstance.on('drawpoint', this._rescaleDrawPoints.bind(this));
 
         this._drawInstance.on('drawstart', (e) => {
+            //$(e.target).siblings('circle').attr('r',10)//标注点的大小
             lastPoint = {
                 x: e.detail.event.clientX,
                 y: e.detail.event.clientY,
@@ -292,6 +320,7 @@ class ShapeCreatorView {
         });
 
         this._drawInstance.on('drawpoint', (e) => {
+            // $(e.target).siblings('circle').attr('r',10)//标注点的大小
             lastPoint = {
                 x: e.detail.event.clientX,
                 y: e.detail.event.clientY,
@@ -342,10 +371,10 @@ class ShapeCreatorView {
             // Min 2 points for polyline and 3 points for polygon
             if (actualPoints.length) {
                 if (this._type === 'polyline' && actualPoints.length < 2) {
-                    showMessage("Min 2 points must be for polyline drawing.");
+                    showMessage("最小2点必须是折线绘图.");
                 }
                 else if (this._type === 'polygon' && actualPoints.length < 3) {
-                    showMessage("Min 3 points must be for polygon drawing.");
+                    showMessage("最小3点必须是多边形绘图.");
                 }
                 else {
                     let frameWidth = window.cvat.player.geometry.frameWidth;
@@ -423,14 +452,14 @@ class ShapeCreatorView {
             break;
         case 'points':
             this._drawInstance = this._frameContent.polyline().draw({snapToGrid: 0.1}).addClass('shapeCreation').attr({
-                'stroke-width': 0,
+                'stroke-width': 0
             });
             this._createPolyEvents();
             break;
         case 'polygon':
             if (this._polyShapeSize && this._polyShapeSize < 3) {
                 if (!$('.drawAllert').length) {
-                    showMessage("Min 3 points must be for polygon drawing.").addClass('drawAllert');
+                    showMessage("最小3点必须是多边形绘图.").addClass('drawAllert');
                 }
                 this._controller.switchCreateMode(true);
                 return;
@@ -443,7 +472,7 @@ class ShapeCreatorView {
         case 'polyline':
             if (this._polyShapeSize && this._polyShapeSize < 2) {
                 if (!$('.drawAllert').length) {
-                    showMessage("Min 2 points must be for polyline drawing.").addClass('drawAllert');
+                    showMessage("最小2点必须是折线绘图.").addClass('drawAllert');
                 }
                 this._controller.switchCreateMode(true);
                 return;
@@ -520,7 +549,7 @@ class ShapeCreatorView {
                 });
             }
 
-            this._createButton.text("Stop Creation");
+            this._createButton.text("停止创建");
             document.oncontextmenu = () => false;
             this._create();
         }
@@ -532,7 +561,7 @@ class ShapeCreatorView {
                 y: 0
             };
             this._cancel = true;
-            this._createButton.text("Create Shape");
+            this._createButton.text("创建图形");
             document.oncontextmenu = null;
             if (this._drawInstance) {
                 // We save current result for poly shape if it's need

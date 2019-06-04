@@ -248,12 +248,12 @@ class ShapeGrouperView {
     onGrouperUpdate(grouper) {
         if (grouper.active) {
             this._enableEvents();
-            this._groupShapesButton.text('Apply Group');
+            this._groupShapesButton.text('应用分组');
         }
         else {
             this._reset();
             this._disableEvents();
-            this._groupShapesButton.text('Group Shapes');
+            this._groupShapesButton.text('图形分组');
             if (this._rectSelector) {
                 this._rectSelector.remove();
                 this._rectSelector = null;
