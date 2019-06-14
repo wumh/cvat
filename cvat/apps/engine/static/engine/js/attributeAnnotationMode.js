@@ -183,19 +183,30 @@ class AAMModel extends Listener {
 
     moveShape(direction) {
         if (!this._activeAAM || this._currentShapes.length < 2) {
+            if(Math.sign(direction) < 0){
+                prevFilterFrameHandler()
+            }else{
+                nextFilterFrameHandler()
+            }
             return;
         }
 
         this._deactivate();
+
         if (Math.sign(direction) < 0) {
             // next
             this._activeIdx += 1;
+            
             if (this._activeIdx >= this._currentShapes.length) {
                 this._activeIdx = 0;
+                prevFilterFrameHandler()
             }
         } else {
             // prev
             this._activeIdx -= 1;
+            if(this._activeIdx == 0){
+                nextFilterFrameHandler()
+            }
             if (this._activeIdx < 0) {
                 this._activeIdx = this._currentShapes.length - 1;
             }

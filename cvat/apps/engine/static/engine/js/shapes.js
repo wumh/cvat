@@ -1623,7 +1623,7 @@ class ShapeView extends Listener {
 
                 this._updateColorForDots();
                 let self = this;
-                $('.svg_select_points').each(function() {
+                $('.svg_select_points').each(function(index,item) {
                     $(this).on('mouseover', () => {
                         this.instance.attr('stroke-width', STROKE_WIDTH * 2 / window.cvat.player.geometry.scale);
                     }).on('mouseout', () => {
@@ -2504,15 +2504,23 @@ class ShapeView extends Listener {
         let color = this._appearance.fill || this._appearance.colors.shape;
         let scaledStroke = SELECT_POINT_STROKE_WIDTH / window.cvat.player.geometry.scale;
         let colorArr = [0,8,16,24,32,54,57,60,63,33,35,40,44,48,46,84,90,102,87,93]
+        let color1 = [39,40,41,42,48,49,50,51,52,53,54,56,57,58,59,60,61,62,63,64,65,66,92,93,94,95,96,101,102,103,104]
+        let color2 = [67,68,69,70,71,72,73,74,76,77,78,79,80,81,82,83,86,87,88,89,90,97,98,99,100]
+        let color3 = [55,85,91,105,106]
         $('.svg_select_points').each(function(index,item) {
-            this.instance.fill(color)
+            this.instance.fill('blue')
             this.instance.stroke('black');
             this.instance.attr('stroke-width', scaledStroke);
             
-            if($.inArray(parseInt(index),colorArr) !=-1){
+            if($.inArray(parseInt(index)+1,color1) !=-1){
+                this.instance.fill('green')
+            }else if($.inArray(parseInt(index)+1,color2) !=-1){
                 this.instance.fill('red')
+            }else if($.inArray(parseInt(index)+1,color3) !=-1){
+                this.instance.fill('yellow')
             }
         });
+        
     }
 
 
@@ -3202,14 +3210,20 @@ class PointsView extends PolyShapeView {
         this._uis.points.node.setAttribute('z_order', position.z_order);
 
         let colorArr = [0,8,16,24,32,54,57,60,63,33,35,40,44,48,46,84,90,102,87,93]
+        let color1 = [39,40,41,42,48,49,50,51,52,53,54,56,57,58,59,60,61,62,63,64,65,66,92,93,94,95,96,101,102,103,104]
+        let color2 = [67,68,69,70,71,72,73,74,76,77,78,79,80,81,82,83,86,87,88,89,90,97,98,99,100]
+        let color3 = [55,85,91,105,106]
         let points = PolyShapeModel.convertStringToNumberArray(position.points);
         for (var i in points) {
-            let radius = POINT_RADIUS * 2 / window.cvat.player.geometry.scale;
-            let scaledStroke = STROKE_WIDTH / window.cvat.player.geometry.scale;
+            var radius = POINT_RADIUS * 2 / window.cvat.player.geometry.scale ;
+            var scaledStroke = STROKE_WIDTH / window.cvat.player.geometry.scale;
+            if($.inArray(parseInt(i)+1,color3) !=-1){
+                continue
+            }
             let circlePoint = this._uis.points.circle(radius).move(points[i].x - radius / 2, points[i].y - radius / 2)
                 .fill('inherit').stroke('black').attr('stroke-width', scaledStroke).addClass('tempMarker');
 
-            let fontSize = 10/window.cvat.player.geometry.scale;
+            /*let fontSize = 10/window.cvat.player.geometry.scale;
             let textLeft = points[i].x + scaledStroke;
             let textTop = points[i].y + window.cvat.player.geometry.scale
             let textNumber = this._uis.points.text(String(parseInt(i)+1)).move(textLeft, textTop).attr('fill','#fff').font('size',fontSize);
@@ -3217,8 +3231,24 @@ class PointsView extends PolyShapeView {
             if($.inArray(parseInt(i),colorArr) !=-1){
                 circlePoint.attr('fill','red')
                 textNumber.attr('fill','red')
+            }*/
+            if($.inArray(parseInt(i)+1,color1) !=-1){
+                circlePoint.attr('fill','green')
+            }
+            else if($.inArray(parseInt(i)+1,color2) !=-1){
+                circlePoint.attr('fill','red')
+            }else if($.inArray(parseInt(i)+1,color3) !=-1){
+                circlePoint.attr('fill','yellow')
+            }else{
+                circlePoint.attr('fill','blue')
             }
         }
+        for(var i=0; i<color3.length; i++){
+            var index = color3[i]-1
+            this._uis.points.circle(radius).move(points[index].x - radius / 2, points[index].y - radius / 2)
+                .fill('yellow').stroke('black').attr('stroke-width', scaledStroke).addClass('tempMarker');
+        }
+        
     }
 
 

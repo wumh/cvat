@@ -480,16 +480,22 @@ class PlayerController {
                 if (frame != null) {
                     this._model.shift(frame, true);
                 }
-                e.preventDefault();
+                if(e){
+                    e.preventDefault();
+                }
             });
+            window.nextFilterFrameHandler = nextFilterFrameHandler;
 
             const prevFilterFrameHandler = Logger.shortkeyLogDecorator((e) => {
                 const frame = this._find(-1);
                 if (frame != null) {
                     this._model.shift(frame, true);
                 }
-                e.preventDefault();
+                if(e){
+                    e.preventDefault();
+                }
             });
+            window.prevFilterFrameHandler = prevFilterFrameHandler;
 
 
             const forwardHandler = Logger.shortkeyLogDecorator(() => {
@@ -628,13 +634,15 @@ class PlayerController {
     changeFPS(e) {
         const fpsMap = {
             1: 1,
-            2: 5,
-            3: 12,
-            4: 25,
-            5: 50,
-            6: 100,
+            2: 2,
+            3: 3,
+            4: 5,
+            5: 12,
+            6: 25,
+            7: 50,
+            8: 100
         };
-        const value = Math.clamp(+e.target.value, 1, 6);
+        const value = Math.clamp(+e.target.value, 1, 8);
         this._model.fps = fpsMap[value];
     }
 
