@@ -284,8 +284,12 @@ class PlayerModel extends Listener {
     }
 
     play() {
+        if(window._playMoveShape){
+            return false
+        }
         this._pauseFlag = false;
-        this._playInterval = setInterval(() => {
+
+        window._playInterval = this._playInterval = setInterval(() => {
             if (this._pauseFlag) { // pause method without notify (for frame downloading)
                 if (this._playInterval) {
                     clearInterval(this._playInterval);

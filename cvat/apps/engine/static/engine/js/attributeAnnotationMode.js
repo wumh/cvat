@@ -309,7 +309,6 @@ class AAMModel extends Listener {
 class AAMController {
     constructor(aamModel) {
         this._model = aamModel;
-        this._playInterval = null;
 
         function setupAAMShortkeys() {
             const switchAAMHandler = Logger.shortkeyLogDecorator(() => {
@@ -349,10 +348,13 @@ class AAMController {
             });
 
             const playMoveShape = Logger.shortkeyLogDecorator((e) => {
+                if(window._playInterval){
+                    return false;
+                }
                 if(this._model._activeAAM){
-                    if(this._playInterval){
-                        clearInterval(this._playInterval);
-                        this._playInterval = null;
+                    if(window._playMoveShape){
+                        clearInterval(window._playMoveShape);
+                        window._playMoveShape = null;
                     }else{
                         let fpsMap = {
                             1: 1/4,
@@ -367,12 +369,12 @@ class AAMController {
                             10: 50
                         };
                         let fps = fpsMap[$('#speedSelect').val()]
-                        this._playInterval = setInterval(() => {
+                        window._playMoveShape = setInterval(() => {
                             this._model.moveShape(1)
                         }, 1000 / fps);
                     }
                 }
-                
+                return false
             })
 
             const { shortkeys } = window.cvat.config;
@@ -465,6 +467,7 @@ class AAMView {
         } else {
             oldRect.remove();
             oldMask.remove();
+            clearInterval(window._playMoveShape);
         }
     }
 
