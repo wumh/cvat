@@ -2505,7 +2505,7 @@ class ShapeView extends Listener {
         let scaledStroke = SELECT_POINT_STROKE_WIDTH / window.cvat.player.geometry.scale;
         let colorArr = [0,8,16,24,32,54,57,60,63,33,35,40,44,48,46,84,90,102,87,93]
         let color1 = [39,40,41,42,48,49,50,51,52,53,54,56,57,58,59,60,61,62,63,64,65,66,92,93,94,95,96,101,102,103,104]
-        let color2 = [67,68,69,70,71,72,73,74,76,77,78,79,80,81,82,83,86,87,88,89,90,97,98,99,100]
+        let color2 = [1,33,67,68,69,70,71,72,73,74,76,77,78,79,80,81,82,83,86,87,88,89,90,97,98,99,100]
         let color3 = [55,85,91,105,106]
         $('.svg_select_points').each(function(index,item) {
             this.instance.fill('blue')
@@ -3170,6 +3170,17 @@ class PointsView extends PolyShapeView {
     constructor(pointsModel, pointsController, svgScene, menusScene, textsScene) {
         super(pointsModel, pointsController, svgScene, menusScene, textsScene);
         this._uis.points = null;
+        $('#isShowPointsNumber').change(function(){
+            let value = $('#isShowPointsNumber').prop('checked')
+            if(value){
+                localStorage['isShowPointsNumber'] = value
+                
+            }else{
+                localStorage['isShowPointsNumber'] = ''
+            }
+            
+            
+        })
     }
 
 
@@ -3196,7 +3207,7 @@ class PointsView extends PolyShapeView {
         }
     }
 
-
+    
     _drawPointMarkers(position) {
         if (this._uis.points || position.outside) {
             return;
@@ -3211,9 +3222,10 @@ class PointsView extends PolyShapeView {
 
         let colorArr = [0,8,16,24,32,54,57,60,63,33,35,40,44,48,46,84,90,102,87,93]
         let color1 = [39,40,41,42,48,49,50,51,52,53,54,56,57,58,59,60,61,62,63,64,65,66,92,93,94,95,96,101,102,103,104]
-        let color2 = [67,68,69,70,71,72,73,74,76,77,78,79,80,81,82,83,86,87,88,89,90,97,98,99,100]
+        let color2 = [1,33,67,68,69,70,71,72,73,74,76,77,78,79,80,81,82,83,86,87,88,89,90,97,98,99,100]
         let color3 = [55,85,91,105,106]
         let points = PolyShapeModel.convertStringToNumberArray(position.points);
+
         for (var i in points) {
             var radius = POINT_RADIUS * 2 / window.cvat.player.geometry.scale ;
             var scaledStroke = STROKE_WIDTH / window.cvat.player.geometry.scale;
@@ -3223,15 +3235,15 @@ class PointsView extends PolyShapeView {
             let circlePoint = this._uis.points.circle(radius).move(points[i].x - radius / 2, points[i].y - radius / 2)
                 .fill('inherit').stroke('black').attr('stroke-width', scaledStroke).addClass('tempMarker');
 
-            /*let fontSize = 10/window.cvat.player.geometry.scale;
-            let textLeft = points[i].x + scaledStroke;
-            let textTop = points[i].y + window.cvat.player.geometry.scale
-            let textNumber = this._uis.points.text(String(parseInt(i)+1)).move(textLeft, textTop).attr('fill','#fff').font('size',fontSize);
+            //点的序号
+            if(localStorage['isShowPointsNumber']){
+                let fontSize = 10/window.cvat.player.geometry.scale;
+                let textLeft = points[i].x + scaledStroke;
+                let textTop = points[i].y + Math.sqrt(window.cvat.player.geometry.scale)
+                let textNumber = this._uis.points.text(String(parseInt(i)+1)).move(textLeft, textTop).attr('fill','#fff').font('size',fontSize);
+            }
+            
 
-            if($.inArray(parseInt(i),colorArr) !=-1){
-                circlePoint.attr('fill','red')
-                textNumber.attr('fill','red')
-            }*/
             if($.inArray(parseInt(i)+1,color1) !=-1){
                 circlePoint.attr('fill','green')
             }
@@ -3243,10 +3255,15 @@ class PointsView extends PolyShapeView {
                 circlePoint.attr('fill','blue')
             }
         }
+        if(localStorage['isShowPointsNumber']){
+            $('#isShowPointsNumber').attr('checked',true)
+        }
         for(var i=0; i<color3.length; i++){
             var index = color3[i]-1
-            this._uis.points.circle(radius).move(points[index].x - radius / 2, points[index].y - radius / 2)
+            if(points[index]){
+                this._uis.points.circle(radius).move(points[index].x - radius / 2, points[index].y - radius / 2)
                 .fill('yellow').stroke('black').attr('stroke-width', scaledStroke).addClass('tempMarker');
+            }
         }
         
     }

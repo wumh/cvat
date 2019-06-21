@@ -69,7 +69,6 @@ class Config {
                 description: '更改图形类型'
             },
 
-
             change_shape_color: {
                 value: 'enter',
                 view_value: 'Enter',
@@ -182,6 +181,12 @@ class Config {
                 value: 'space',
                 view_value: 'Space',
                 description: '切换播放器的播放/暂停',
+            },
+
+            aam_move_shape: {
+                value: 'x',
+                view_value: 'x',
+                description: '属性注释模式下自动切换图形对象的播放和暂停'
             },
 
             open_help: {

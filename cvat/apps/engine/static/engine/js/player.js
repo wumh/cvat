@@ -143,12 +143,31 @@ class PlayerModel extends Listener {
             previous: null,
         };
 
+        this.fpsMap = {
+            1: 1/4,
+            2: 1/3,
+            3: 1/2,
+            4: 1,
+            5: 2,
+            6: 3,
+            7: 5,
+            8: 12,
+            9: 25,
+            10: 50
+        };
+        
         this._settings = {
             multipleStep: 10,
-            fps: 25,
+            fps: 2,
             rotateAll: task.mode === 'interpolation',
             resetZoom: task.mode === 'annotation',
         };
+
+        if(localStorage['setObj']){
+            let setObj = JSON.parse(localStorage['setObj'])
+            this._settings.multipleStep = setObj.StepValue
+            this._settings.fps = this.fpsMap[setObj.FPSValue]
+        }
 
         this._playInterval = null;
         this._pauseFlag = null;
@@ -633,16 +652,18 @@ class PlayerController {
 
     changeFPS(e) {
         const fpsMap = {
-            1: 1,
-            2: 2,
-            3: 3,
-            4: 5,
-            5: 12,
-            6: 25,
-            7: 50,
-            8: 100
+            1: 1/4,
+            2: 1/3,
+            3: 1/2,
+            4: 1,
+            5: 2,
+            6: 3,
+            7: 5,
+            8: 12,
+            9: 25,
+            10: 50
         };
-        const value = Math.clamp(+e.target.value, 1, 8);
+        const value = Math.clamp(+e.target.value, 1, 10);
         this._model.fps = fpsMap[value];
     }
 
@@ -736,6 +757,7 @@ class PlayerView {
         this._counterClockwiseRotationButtonUI = $('#counterClockwiseRotation');
         this._rotationWrapperUI = $('#rotationWrapper');
         this._rotatateAllImagesUI = $('#rotateAllImages');
+        this._saveSettignsButton = $('#saveSettignsButton');
 
         this._clockwiseRotationButtonUI.on('click', () => {
             this._controller.rotate(90);
@@ -785,6 +807,17 @@ class PlayerView {
                 blurAllElements();
             }
         });
+        this._saveSettignsButton.on('click',()=>{
+            let FPSValue = this._playerSpeedUI.val();
+            let StepValue = this._playerStepUI.val();
+            let MarginValue = $('#aamZoomMargin').val();
+            let SaveValue = $('#autoSaveBox').prop('checked');
+            let setObj = {
+                FPSValue,StepValue,MarginValue,SaveValue
+            }
+            localStorage['setObj'] = JSON.stringify(setObj)
+            $('#settingsWindow').addClass('hidden');
+        })
 
         const { shortkeys } = window.cvat.config;
 
@@ -857,7 +890,13 @@ class PlayerView {
 
         this._resetZoomUI.prop('checked', playerModel.resetZoom);
         this._playerStepUI.prop('value', playerModel.multipleStep);
-        this._playerSpeedUI.prop('value', '4');
+
+        if(localStorage['setObj']){
+            let setObj = JSON.parse(localStorage['setObj'])
+            this._playerSpeedUI.prop('value',setObj.FPSValue)
+        }else{
+            this._playerSpeedUI.prop('value', '6');
+        }
 
         this._frameNumber.attr('title', `
             ${shortkeys.focus_to_frame.view_value} - ${shortkeys.focus_to_frame.description}`);

@@ -343,7 +343,7 @@ class AnnotationSaverView {
         this._saveButton = $('#saveButton').on('click', () => {
             this._controller.save();
         }).attr('title', saveHelp);
-
+        
         this._autoSaveBox = $('#autoSaveBox').on('change', (e) => {
             const enabled = e.target.checked;
             const time = +this._autoSaveTime.prop('value');
@@ -354,6 +354,13 @@ class AnnotationSaverView {
             e.target.value = Math.clamp(+e.target.value, +e.target.min, +e.target.max);
             this._autoSaveBox.trigger('change');
         });
+        
+        if(localStorage['setObj']){
+            let setObj = JSON.parse(localStorage['setObj']);
+            const time = +this._autoSaveTime.prop('value');
+            this._autoSaveBox.attr('checked',setObj.SaveValue)
+            this._controller.autoSave(setObj.SaveValue,time)
+        }
 
         window.onbeforeunload = (e) => {
             if (this._controller.hasUnsavedChanges()) { // eslint-disable-line react/no-this-in-sfc

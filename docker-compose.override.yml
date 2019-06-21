@@ -4,5 +4,15 @@ services:
   cvat:
     environment:
       ALLOWED_HOSTS: '*'
+      CVAT_SHARE_URL: "Mounted from /mnt/share host directory"
+    volumes:
+      - cvat_share:/home/django/share:ro
     ports:
       - "8080:8080"
+    
+volumes:
+  cvat_share:
+    driver_opts:
+      type: none
+      device: /mnt/share
+      o: bind

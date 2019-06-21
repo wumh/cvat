@@ -190,6 +190,10 @@
                             <input type="radio" name="colorByRadio" id="colorByLabelRadio" class="settingsBox"/>
                         </div>
                     </td>
+                    <td style="width: auto;">
+                        <div style="float: left;"> <label class="semiBold"> 点的序号: </label> </div>
+                        <div style="float: left; margin-left: 1em;"> <input type="checkbox" id="isShowPointsNumber" class="settingsBox"/> </div>
+                    </td>
                 </tr>
             </table>
         </div>
@@ -244,14 +248,16 @@
                         <td> <label> 播放速度 </label> </td>
                         <td>
                             <select id="speedSelect" class="regular h3">
-                                <option value="1"> 1 FPS </option>
-                                <option value="2"> 2 FPS </option>
-                                <option value="3"> 3 FPS </option>
-                                <option value="4"> 5 FPS </option>
-                                <option value="5"> 12 FPS </option>
-                                <option value="6" selected> 25 FPS </option>
-                                <option value="7"> 50 FPS </option>
-                                <option value="8"> 100 FPS </option>
+                                <option value="1"> 1/4 FPS </option>
+                                <option value="2"> 1/3 FPS </option>
+                                <option value="3"> 1/2 FPS </option>
+                                <option value="4"> 1 FPS </option>
+                                <option value="5"> 2 FPS </option>
+                                <option value="6" selected> 3 FPS </option>
+                                <option value="7"> 5 FPS </option>
+                                <option value="8"> 12 FPS </option>
+                                <option value="9"> 25 FPS </option>
+                                <option value="10"> 50 FPS </option>
                             </select>
                         </td>
                     </tr>
@@ -308,7 +314,9 @@
                     </tr>
                     <tr >
                         <td> <label> 属性注释模式缩放页边距 </label> </td>
-                        <td> <input type="range" min="0" max="1000" value="100" id="aamZoomMargin"/> </td>
+                        <td> <input type="range" min="0" max="1000" value="100" id="aamZoomMargin"/> 
+                            <div>当前缩放数值: <span id="aamZoomMarginNumber" style="color: red">100</span></div> 
+                        </td>
                     </tr>
                     <tr>
                         <td> <label> 启用自动保存 </label> </td>
@@ -327,6 +335,7 @@
 
             <center>
                 <button id="closeSettignsButton" class="regular h1" style="margin-top: 15px;"> 关闭 </button>
+                <button id="saveSettignsButton" class="regular h1" style="margin-top: 15px;"> 保存设置 </button>
             </center>
         </div>
     </div>

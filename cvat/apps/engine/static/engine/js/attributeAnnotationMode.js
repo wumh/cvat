@@ -29,6 +29,7 @@ class AAMModel extends Listener {
         this._currentShapes = [];
         this._attrNumberByLabel = {};
         this._helps = {};
+        this._shiftTab = false;
 
         function getHelp(attrId) {
             const attrInfo = window.cvat.labelsInfo.attrInfo(attrId);
@@ -80,6 +81,7 @@ class AAMModel extends Listener {
         }
 
         shapeCollection.subscribe(this);
+
     }
 
     _bbRect(pos) {
@@ -115,8 +117,15 @@ class AAMModel extends Listener {
         }
 
         if (this._currentShapes.length) {
-            this._activeIdx = 0;
-            this._active = this._currentShapes[0].model;
+            if(this._shiftTab){
+                this._activeIdx = this._currentShapes.length-1;
+                this._active = this._currentShapes[this._activeIdx].model;
+                this._shiftTab = false;
+            }else{
+                this._activeIdx = 0;
+                this._active = this._currentShapes[0].model;
+            }
+            
         } else {
             this._activeIdx = null;
             this._active = null;
@@ -183,32 +192,32 @@ class AAMModel extends Listener {
 
     moveShape(direction) {
         if (!this._activeAAM || this._currentShapes.length < 2) {
-            if(Math.sign(direction) < 0){
-                prevFilterFrameHandler()
-            }else{
+            if(Math.sign(direction) > 0){
                 nextFilterFrameHandler()
+            }else{
+                this._shiftTab = true
+                prevFilterFrameHandler()
             }
             return;
         }
 
         this._deactivate();
-
-        if (Math.sign(direction) < 0) {
+        
+        if (Math.sign(direction) > 0) {
             // next
             this._activeIdx += 1;
             
             if (this._activeIdx >= this._currentShapes.length) {
                 this._activeIdx = 0;
-                prevFilterFrameHandler()
+                nextFilterFrameHandler()
             }
         } else {
             // prev
             this._activeIdx -= 1;
-            if(this._activeIdx == 0){
-                nextFilterFrameHandler()
-            }
             if (this._activeIdx < 0) {
                 this._activeIdx = this._currentShapes.length - 1;
+                this._shiftTab = true
+                prevFilterFrameHandler()
             }
         }
 
@@ -300,6 +309,7 @@ class AAMModel extends Listener {
 class AAMController {
     constructor(aamModel) {
         this._model = aamModel;
+        this._playInterval = null;
 
         function setupAAMShortkeys() {
             const switchAAMHandler = Logger.shortkeyLogDecorator(() => {
@@ -338,6 +348,33 @@ class AAMController {
                 this._model.setupAttributeValue(key);
             });
 
+            const playMoveShape = Logger.shortkeyLogDecorator((e) => {
+                if(this._model._activeAAM){
+                    if(this._playInterval){
+                        clearInterval(this._playInterval);
+                        this._playInterval = null;
+                    }else{
+                        let fpsMap = {
+                            1: 1/4,
+                            2: 1/3,
+                            3: 1/2,
+                            4: 1,
+                            5: 2,
+                            6: 3,
+                            7: 5,
+                            8: 12,
+                            9: 25,
+                            10: 50
+                        };
+                        let fps = fpsMap[$('#speedSelect').val()]
+                        this._playInterval = setInterval(() => {
+                            this._model.moveShape(1)
+                        }, 1000 / fps);
+                    }
+                }
+                
+            })
+
             const { shortkeys } = window.cvat.config;
             Mousetrap.bind(shortkeys.switch_aam_mode.value, switchAAMHandler, 'keydown');
             Mousetrap.bind(shortkeys.aam_next_attribute.value, nextAttributeHandler, 'keydown');
@@ -345,6 +382,8 @@ class AAMController {
             Mousetrap.bind(shortkeys.aam_next_shape.value, nextShapeHandler, 'keydown');
             Mousetrap.bind(shortkeys.aam_prev_shape.value, prevShapeHandler, 'keydown');
             Mousetrap.bind(shortkeys.select_i_attribute.value, selectAttributeHandler, 'keydown');
+            Mousetrap.bind(shortkeys.aam_move_shape.value, playMoveShape, 'keydown');
+
         }
 
         setupAAMShortkeys.call(this);
@@ -367,9 +406,15 @@ class AAMView {
         this._frameContent = SVG.adopt($('#frameContent')[0]);
         this._controller = aamController;
 
+        if(localStorage['setObj']){
+            let setObj = JSON.parse(localStorage['setObj'])
+            this._zoomMargin.val(setObj.MarginValue)
+        }
+
         this._zoomMargin.on('change', (e) => {
             const value = +e.target.value;
             this._controller.setMargin(value);
+            $('#aamZoomMarginNumber').html(value)
         }).trigger('change');
         aamModel.subscribe(this);
     }
