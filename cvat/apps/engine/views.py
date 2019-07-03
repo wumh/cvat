@@ -66,7 +66,7 @@ class ServerViewSet(viewsets.ViewSet):
     def about(request):
         from cvat import __version__ as cvat_version
         about = {
-            "name": "Computer Vision Annotation Tool",
+            "name": "Image Annotation Tool",
             "version": cvat_version,
             "description": "CVAT is completely re-designed and re-implemented " +
                 "version of Video Annotation Tool from Irvine, California " +

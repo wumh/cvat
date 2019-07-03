@@ -9,7 +9,7 @@
 {% load pagination_tags %}
 
 {% block head_title %}
-    CVAT Dashboard
+    Dashboard v0.4.1_0701
 {% endblock %}
 
 {% block head_css %}
@@ -45,7 +45,7 @@
     <div id="content">
         <div style="width: 100%; display: flex;">
             <div style="width: 50%; display: flex;"> </div>
-            <div style="width: 100%; display: flex;">
+            <div style="width: 100%; display: flex;" id="taskMenu">
                 <div id="dashboardManageButtons" style="display: flex;">
                     <button id="dashboardCreateTaskButton" class="regular h1" style="padding: 7px;"> 创建新任务 </button>
                 </div>
@@ -56,6 +56,7 @@
             </div>
             <div style="width: 50%; display: flex;padding-left: 20px;">
                 <div style="line-height:51px;margin-right: 30px;">当前用户: {{user.username}}</div>
+                <input type="hidden" id="isAdminUser" value="{{user.username}}">
                 <a href="/auth/login"><button  class="regular h3" style="height:100%;">退出登录</button></a>
             </div>
         </div>
@@ -105,6 +106,14 @@ car @select=color:blue,red,black ~checkbox=parked:true
                     <td> <input type="text" id="dashboardBugTrackerInput" class="regular" style="width: 90%", placeholder="请指定完整的URL"/> </td>
                 </tr>
                 <tr>
+                    <td>
+                        <label class="regular h2"> 批量创建任务 </label>
+                    </td>
+                    <td>
+                        <input type="checkbox" id="dashboardCreateTasks"/>
+                    </td>
+                </tr>
+                <tr>
                     <td> <label class="regular h2"> 资源: </label> </td>
                     <td>
                         <input id="dashboardLocalSource" type="radio" name="sourceType" value="local" checked=true/> <label for="dashboardLocalSource" class="regular h2" for="localSource"> 我的电脑 </label>
@@ -142,7 +151,7 @@ car @select=color:blue,red,black ~checkbox=parked:true
                             <label class="regular h2"> 画面质量 </label>
                         </td>
                         <td>
-                            <input type="number" id="dashboardImageQuality" class="regular" style="width: 4.5em;" max="95" min="1" value="50" disabled=true/>
+                            <input type="number" id="dashboardImageQuality" class="regular" style="width: 4.5em;" max="100" min="1" value="100" disabled=true/>
                             <input type="checkbox" id="dashboardCustomQuality" title="自定义图像质量"/>
                         </td>
                     </tr>

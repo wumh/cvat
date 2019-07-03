@@ -13,6 +13,7 @@ import numpy as np
 from PIL import Image
 from traceback import print_exception
 from ast import literal_eval
+import re
 
 import mimetypes
 _SCRIPT_DIR = os.path.realpath(os.path.dirname(__file__))
@@ -205,41 +206,70 @@ def _copy_video_to_task(video, db_task, step):
         width=image.width, height=image.height)
     image.close()
 
+def sort_key(s):
+    if s:
+        try:
+            c = re.findall('\d+', s)[-1]
+        except:
+            c = -1
+        return int(c)
+
+def List_sort(alist):
+    alist.sort(key = sort_key)
+    return alist
+
 def _copy_images_to_task(upload_dir, db_task):
     image_paths = []
     for root, _, files in os.walk(upload_dir):
         paths = map(lambda f: os.path.join(root, f), files)
         paths = filter(lambda x: _get_mime(x) == 'image', paths)
         image_paths.extend(paths)
-    image_paths.sort()
+    # image_paths.sort()
+    image_paths = List_sort(image_paths)
 
     db_images = []
+    convert_err_file = []
     if len(image_paths):
         job = rq.get_current_job()
-        for frame, image_orig_path in enumerate(image_paths):
+        frame = 0
+        for num_of_files, image_orig_path in enumerate(image_paths):
             progress = frame * 100 // len(image_paths)
-            job.meta['status'] = 'Images are being compressed.. {}%'.format(progress)
+            job.meta['status'] = 'Images are being compressed.. {}%{}'.format(progress,image_orig_path)
             job.save_meta()
             image_dest_path = db_task.get_frame_path(frame)
-            db_task.size += 1
+            
             dirname = os.path.dirname(image_dest_path)
             if not os.path.exists(dirname):
                 os.makedirs(dirname)
-            image = Image.open(image_orig_path)
-            # Ensure image data fits into 8bit per pixel before RGB conversion as PIL clips values on conversion
-            if image.mode == "I":
-                # Image mode is 32bit integer pixels.
-                # Autoscale pixels by factor 2**8 / im_data.max() to fit into 8bit
-                im_data = np.array(image)
-                im_data = im_data * (2**8 / im_data.max())
-                image = Image.fromarray(im_data.astype(np.int32))
-            image = image.convert('RGB')
-            image.save(image_dest_path, quality=db_task.image_quality, optimize=True)
-            db_images.append(models.Image(task=db_task, path=image_orig_path,
-                frame=frame, width=image.width, height=image.height))
-            image.close()
+            try:
+                image = Image.open(image_orig_path)
+                # Ensure image data fits into 8bit per pixel before RGB conversion as PIL clips values on conversion
+                if image.mode == "I":
+                    # Image mode is 32bit integer pixels.
+                    # Autoscale pixels by factor 2**8 / im_data.max() to fit into 8bit
+                    im_data = np.array(image)
+                    im_data = im_data * (2**8 / im_data.max())
+                    image = Image.fromarray(im_data.astype(np.int32))
+                image = image.convert('RGB')
+                image.save(image_dest_path, quality=db_task.image_quality, optimize=True)
+                
+                db_images.append(models.Image(task=db_task, path=image_orig_path,
+                    frame=frame, width=image.width, height=image.height))
+                db_task.size += 1
+                frame += 1 
+                image.close()
+            except IOError:
+                #s=sys.exc_info()
+                slogger.glob.info("IMAGE OPEN ERROR #{}".format(image_orig_path)) 
+                #slogger.glob.info("Error '{}' happened on line {}".format(s[1],s[2].tb_lineno))              
+                convert_err_file.append(image_orig_path)
+                pass
 
         models.Image.objects.bulk_create(db_images)
+        if (convert_err_file):
+            job.meta['status'] = 'Images are convert error.. {}'.format(convert_err_file)
+            #raise ValueError('Images are convert error.. {}'.format(convert_err_file))
+
     else:
         raise ValueError("Image files were not found")
 

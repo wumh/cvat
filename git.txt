@@ -1,0 +1,199 @@
+  507  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 39487 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  510  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 44293 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  515  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 43073 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  517  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 33451 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  522  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 41871 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  535  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 45457 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  548  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 39861 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  554  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 37903 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  560  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 41859 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  565  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 34711 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  567  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 39721 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  571  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 41499 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  582  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 40969 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  585  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 41799 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  591  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 39709 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  594  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 41001 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  604  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 37031 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  624  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 46687 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  629  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 36915 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  636  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 35369 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  733  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 43045 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  738  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 45831 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  757  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 43705 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  762  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 44477 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  769  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 46719 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  773  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 39969 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  776  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 44273 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  785  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 46103 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  795  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 44865 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  806  git clone https://github.com/flyhigher139/
+  807  git clone https://github.com/flyhigher139/mayblog.git
+  838  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 37589 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  840  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.4.12954/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 40607 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  847  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.5.17517/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 43929 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  860  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.5.17517/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 46261 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  870  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.5.17517/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 45395 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  873  cd /home/test/cvat_dev/cvat ; env PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 /home/test/cvat_dev/cvat/.env/bin/python3 /home/test/.vscode/extensions/ms-python.python-2019.5.17517/pythonFiles/ptvsd_launcher.py --default --client --host localhost --port 41843 /home/test/cvat_dev/cvat/manage.py update_git_states 
+  874  git branch
+  875  git commit -m "汉化+点侧叠加数字显示+禁用注册+bug链接改为标注说明"
+  876  git add .
+  877  git commit -m "汉化+点侧叠加数字显示+禁用注册+bug链接改为标注说明"
+  878  git branch -r
+  879  git push
+  880  git push 'https://github.com/wumh/cvat'
+  881  git branch
+  882  git config user.name
+  883  git status
+  884  git branch develop
+  885  git branch
+  886  git  log  –oneline  –decorate  –graph  –all
+  887  git  log   –decorate  –graph  –all
+  888  git log
+  889  git checkout develop 
+  890  git status
+  891  git show HEAD
+  892  git diff
+  893  git show master
+  894  git log --graph --pretty=oneline --abbrev-commit
+  895  git branch
+  896  git status
+  897  git diff
+  898  git remote add origin git@github.com:wumh/cvat.git
+  899  git branch -a
+  900  git remote rm origin
+  901  git remote add origin git@github.com:wumh/cvat.git
+  902  git branch -a
+  903  git push -u origin develop 
+  904  git branch -a
+  905  git remote add origin git@github.com:wumh/cvat.git
+  906  git branch -a
+  907  git push -u origin origin_develop
+  908  git checkout nlcvat 
+  909  git push -u origin nlcvat
+  911  ls -al |grep git
+  912  gedit .gitignore 
+  913  git push -u origin nlcvat
+  919  git push -u origin nlcvat
+  920  gedit .gitignore 
+  921  git status
+  922  gitbranch
+  923  git branch
+  924  git checkout develop
+  925  git status
+  926  gedit .gitignore 
+  927  git stash list
+  928  git checkout nlcvat 
+  929  git stash list
+  930  git status
+  931  git checkout develop
+  932  git push -u origin nlcvat
+  933  git log
+  934  git log --graph --pretty=oneline --abbrev-commit
+  935  git remote add origin git@github.com:wumh/cvat.git
+  936  git commit -m
+  937  git checkout develop
+  938  git pull origin develop
+  939  git pull
+  940  git branch
+  941  git remote add origin git@github.com:wumh/cvat.git
+  942  git pull origin develop
+  943  git push origin devlop
+  944  git push origin develop
+  945  git pull origin develop
+  946  git stash
+  947  git pull origin develop
+  950  git pull origin develop
+  952  git log --graph --pretty=oneline --abbrev-commit 
+  953  git status
+  954  git branch -a
+  955  git checkout nlcvat 
+  956  git log --graph --pretty=oneline --abbrev-commit 
+  957  git branch -a
+  958  git checkout master
+  959  git stash
+  960  git reset --hard a5a9
+  961  git checkout master
+  963  git checkout nlcvat 
+  965  git checkout develop
+  966  git pull
+  967  git branch --set-upstream-to=origin/develop develop 
+  968  git pull
+  969  git log --graph --pretty=oneline --abbrev-commit 
+  971  git checkout nlcvat 
+  973  git checkout develop
+  974  git pull
+  975  git log --graph --pretty=oneline --abbrev-commit 
+  976  git reset --hard a311
+  978  git log --graph --pretty=oneline --abbrev-commit 
+  979  git reflog
+  980  git pull
+  986  git branch 
+  987  git log --graph --pretty=oneline --abbrev-commit 
+  988  git branch
+  989  git log --help
+  990  git log --graph --pretty=oneline 
+  991  git log --graph --pretty=oneline --abbrev-commit 
+  995  git branch -a
+  996  git remoute --help
+  998  md cvat_git
+  999  mkdir cvat_git
+ 1000  cd cvat_git
+ 1001  git clone https://github.com/wumh/cvat.git
+ 1007  git log --graph --pretty=oneline --abbrev-commit 
+ 1008  git reset --hard a5a9
+ 1009  git log --graph --pretty=oneline --abbrev-commit 
+ 1010  git reflog
+ 1011  git checkout -b nlcvat
+ 1012  git branch
+ 1013  git log --graph --pretty=oneline --abbrev-commit 
+ 1014  git statue
+ 1015  git status
+ 1016  gedit .gitignore 
+ 1017  git status
+ 1018  git add .
+ 1019  git status
+ 1020  git commit -m "汉化+点侧叠加数字显示+禁用注册+bug链接改为标注说明+cocker_run_file"
+ 1021  git branch
+ 1022  git branch develop 
+ 1023  git checkout develop 
+ 1024  git reflog
+ 1025  git --hard a31
+ 1026  git reset --hard a311
+ 1027  git merge nlcvat 
+ 1028  git status
+ 1029  git --diff
+ 1031  git status
+ 1032  git diff nlcvat cvat/apps/engine/static/engine/js/shapeCreator.js
+ 1033  git checkout nlcvat 
+ 1034  git diff nlcvat cvat/apps/engine/static/engine/js/shapeCreator.js
+ 1035  git merge nlcvat 
+ 1036  git status
+ 1037  git merge nlcvat 
+ 1038  git add .
+ 1039  git commit -m "汉化+点侧叠加数字显示+禁用注册+bug链接改为标注说明+cocker_run_file+video_fram+yolo"
+ 1040  git log
+ 1041  git log --pretty=oneline --abbrev-commit 
+ 1043  git remote add origin git@github.com:wumh/cvat.git
+ 1044  git branch -a
+ 1045  git remote 
+ 1046  git remote -d
+ 1047  git remote remove origin
+ 1048  git branch -a
+ 1049  git remote add origin git@github.com:wumh/cvat.git
+ 1050  git push -u origin develop 
+ 1051  git branch -a
+ 1052  git log --pretty=oneline 
+ 1053  git reset --hard a311
+ 1054  git log --pretty=oneline --graph --abbrev-commit 
+ 1055  git reset --hard a5a
+ 1056  git reset --hard a5a9
+ 1057  git reflog
+ 1058  git reset --hard 0f54
+ 1059  git branch -a
+ 1086  git clone https://github.com/wumh/nl_nextcloud_docker.git
+ 1104  git clone https://github.com/nextcloud/server.git
+ 1322  git log
+ 1324  git add .
+ 1476  history |grep  git
+ 1477  history |grep  git >git.txt

@@ -439,8 +439,8 @@ class DashboardView {
 
 
         function validateName(name) {
-            const math = name.match('[a-zA-Z0-9_]+');
-            return math !== null;
+            //const math = name.match('[a-zA-Z0-9_]+');
+            return name !== '';
         }
 
         function validateLabels(labels) {
@@ -531,6 +531,10 @@ class DashboardView {
         const submitCreate = $('#dashboardSubmitTask');
         const cancelCreate = $('#dashboardCancelTask');
 
+        const createTasks = $('#dashboardCreateTasks');
+
+        const isAdmin = $('#isAdminUser').val();
+
         let name = nameInput.prop('value');
         let labels = labelsInput.prop('value');
         let bugTrackerLink = bugTrackerInput.prop('value').trim();
@@ -544,13 +548,20 @@ class DashboardView {
         let frameFilter = '';
         let files = [];
 
+        let tasks = createTasks.prop('checked')
+
         dashboardCreateTaskButton.on('click', () => {
             $('#dashboardCreateModal').removeClass('hidden');
         });
-
+        
+        createTasks.on('change', (e) => tasks = createTasks.prop('checked'));
         nameInput.on('change', (e) => name = e.target.value);
         bugTrackerInput.on('change', (e) => bugTrackerLink = e.target.value.trim());
         labelsInput.on('change', (e) => labels = e.target.value);
+
+        if(isAdmin.substr(0,5) != 'admin'){
+            $('#userGuide').siblings().hide();
+        }
 
         localSourceRadio.on('click', () => {
             if (source === 'local') {
@@ -685,16 +696,18 @@ class DashboardView {
         });
 
         submitCreate.on('click', () => {
-            if (!validateName(name)) {
-                taskMessage.css('color', 'red');
-                taskMessage.text('任务名称错误');
-                return;
-            }
-
-            if (!validateLabels(labels)) {
-                taskMessage.css('color', 'red');
-                taskMessage.text('标签规范不好');
-                return;
+            if(!tasks){
+                if (!validateName(name)) {
+                    taskMessage.css('color', 'red');
+                    taskMessage.text('任务名称错误');
+                    return;
+                }
+    
+                if (!validateLabels(labels)) {
+                    taskMessage.css('color', 'red');
+                    taskMessage.text('标签规范不好');
+                    return;
+                }
             }
 
             if (!validateSegmentSize(segmentSize)) {
